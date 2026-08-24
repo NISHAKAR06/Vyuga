@@ -677,7 +677,7 @@ export const initialPayments: PaymentRecord[] = [
     deductions: 0,
     netAmount: 72600,
     status: 'Processing',
-    utrNumber: 'PFMS202608260098412X',
+    utrNumber: 'PFMS-MOCK-2026-0001',
     initiatedAt: '2026-08-26T11:45:00',
     timeline: [
       {
@@ -730,7 +730,7 @@ export const initialPayments: PaymentRecord[] = [
     deductions: 0,
     netAmount: 60000,
     status: 'Completed',
-    utrNumber: 'PFMS202608260081299A',
+    utrNumber: 'PFMS-MOCK-2026-0002',
     initiatedAt: '2026-08-26T10:15:00',
     completedAt: '2026-08-26T11:05:00',
     timeline: [
@@ -756,7 +756,7 @@ export const mockFarmerHistory: ProcurementHistoryItem[] = [
     amount: 70278,
     status: 'Completed',
     paymentStatus: 'Completed',
-    utrNumber: 'PFMS20260412891230',
+    utrNumber: 'PFMS-MOCK-2026-0003',
     qualityGrade: 'Grade A',
     moisture: '14.2%'
   },
@@ -772,7 +772,7 @@ export const mockFarmerHistory: ProcurementHistoryItem[] = [
     amount: 62700,
     status: 'Completed',
     paymentStatus: 'Completed',
-    utrNumber: 'PFMS20251120993412',
+    utrNumber: 'PFMS-MOCK-2025-0004',
     qualityGrade: 'Standard (FAQ)',
     moisture: '15.0%'
   },
@@ -788,7 +788,7 @@ export const mockFarmerHistory: ProcurementHistoryItem[] = [
     amount: 75247,
     status: 'Completed',
     paymentStatus: 'Completed',
-    utrNumber: 'PFMS20250618772341',
+    utrNumber: 'PFMS-MOCK-2025-0005',
     qualityGrade: 'Grade A',
     moisture: '8.5%'
   },
@@ -804,7 +804,7 @@ export const mockFarmerHistory: ProcurementHistoryItem[] = [
     amount: 63000,
     status: 'Completed',
     paymentStatus: 'Completed',
-    utrNumber: 'PFMS20241205112390',
+    utrNumber: 'PFMS-MOCK-2024-0006',
     qualityGrade: 'Grade A',
     moisture: '13.8%'
   }

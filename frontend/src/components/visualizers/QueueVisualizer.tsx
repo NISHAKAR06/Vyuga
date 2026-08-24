@@ -1,6 +1,6 @@
 import React from 'react';
 import { TokenRecord } from '../../types';
-import { Badge } from './Badge';
+import { Badge } from '../ui/Badge';
 import { Clock, UserCheck, Play, Sparkles } from 'lucide-react';
 
 interface QueueVisualizerProps {

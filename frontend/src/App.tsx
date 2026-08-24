@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { LoginPage } from './pages/auth/LoginPage';
-import { Header } from './components/common/Header';
-import { Sidebar } from './components/common/Sidebar';
-import { MobileNav } from './components/common/MobileNav';
-import { ToastContainer } from './components/common/ToastContainer';
-import { ProfileModal } from './components/modals/ProfileModal';
+import { Header, Sidebar, MobileNav } from './components/layout';
+import { ToastContainer } from './components/ui';
+import { ProfileModal } from './components/modals';
 
 // Farmer pages
 import { FarmerDashboard } from './pages/farmer/FarmerDashboard';
