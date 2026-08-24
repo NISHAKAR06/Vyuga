@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Building2,
   Tractor,
+  Activity,
   Menu,
   Check
 } from 'lucide-react';
@@ -35,7 +36,8 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onOpenProfile }
     notifications,
     markAllNotificationsRead,
     markNotificationRead,
-    logout
+    logout,
+    isBackendConnected
   } = useApp();
 
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
@@ -105,6 +107,32 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onOpenProfile }
 
       {/* Right Controls: Role, Language, Theme, Notifications, Profile */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Backend API Status Pill */}
+        <div
+          title={isBackendConnected ? 'Connected to FastAPI Backend' : 'Operating in Offline/Fallback Mode'}
+          className={`hidden sm:flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[11px] font-semibold transition-all ${
+            isBackendConnected
+              ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+              : 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300'
+          }`}
+        >
+          <span className="relative flex h-2 w-2">
+            <span
+              className={`absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping ${
+                isBackendConnected ? 'bg-emerald-400' : 'bg-amber-400'
+              }`}
+            />
+            <span
+              className={`relative inline-flex h-2 w-2 rounded-full ${
+                isBackendConnected ? 'bg-emerald-500' : 'bg-amber-500'
+              }`}
+            />
+          </span>
+          <span className="tracking-tight">
+            {isBackendConnected ? 'API Live' : 'API Syncing'}
+          </span>
+        </div>
+
         {/* Role Switcher */}
         <div className="relative">
           <button

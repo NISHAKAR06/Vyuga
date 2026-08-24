@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import {
   UserRole,
   Language,
@@ -27,6 +27,7 @@ import {
   mockFarmerHistory,
   mockNotifications
 } from '../data/mockData';
+import { api } from '../services/api';
 
 interface AppContextType {
   // Auth & Role
@@ -37,6 +38,10 @@ interface AppContextType {
   isLoggedIn: boolean;
   login: (role: UserRole, mobileOrId?: string) => void;
   logout: () => void;
+
+  // Backend Connectivity Status
+  isBackendConnected: boolean;
+  checkBackendHealth: () => Promise<boolean>;
 
   // Preferences
   theme: Theme;
@@ -160,31 +165,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return (saved === 'officer' || saved === 'admin' || saved === 'farmer') ? saved : 'farmer';
   });
   const [user, setUser] = useState<UserProfile>(() => mockUsers[role] || mockUsers.farmer);
-
   const [currentTab, setCurrentTab] = useState<string>('dashboard');
-
-  const setRole = (newRole: UserRole) => {
-    setRoleState(newRole);
-    setUser(mockUsers[newRole]);
-    localStorage.setItem('agri_role', newRole);
-    setCurrentTab('dashboard');
-  };
-
-  const login = (selectedRole: UserRole) => {
-    setIsLoggedIn(true);
-    setRole(selectedRole);
-    localStorage.setItem('agri_logged_in', 'true');
-    addToast(t.loginSuccessToast, `${t.greetingMorning}, ${mockUsers[selectedRole].name}`, 'success');
-  };
-
-  const logout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('agri_logged_in');
-    addToast(t.logoutToast, '', 'info');
-  };
+  const [isBackendConnected, setIsBackendConnected] = useState<boolean>(false);
 
   // 4. Data states
-  const [centres] = useState<ProcurementCentre[]>(mockCentres);
+  const [centres, setCentres] = useState<ProcurementCentre[]>(mockCentres);
   const [slots, setSlots] = useState<SlotItem[]>(initialSlots);
   const [liveQueue, setLiveQueue] = useState<TokenRecord[]>(initialLiveQueue);
   const [activeFarmerToken, setActiveFarmerToken] = useState<TokenRecord | null>(
@@ -199,16 +184,110 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [produceDraft, setProduceDraft] = useState<any>(null);
 
   // Toast Helpers
-  const addToast = (title: string, message: string, type: ToastMessage['type'] = 'info') => {
+  const addToast = useCallback((title: string, message: string, type: ToastMessage['type'] = 'info') => {
     const id = 'toast-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
     setToasts(prev => [...prev, { id, title, message, type }]);
     setTimeout(() => {
       removeToast(id);
     }, 4500);
-  };
+  }, []);
 
   const removeToast = (id: string) => {
     setToasts(prev => prev.filter(t => t.id !== id));
+  };
+
+  // Sync Backend Connection
+  const checkBackendHealth = useCallback(async (): Promise<boolean> => {
+    const healthy = await api.checkHealth();
+    setIsBackendConnected(healthy);
+    if (healthy) {
+      // Sync centres from backend
+      const centresRes = await api.getCentres();
+      if (centresRes.success && Array.isArray(centresRes.data) && centresRes.data.length > 0) {
+        setCentres(centresRes.data as ProcurementCentre[]);
+      }
+      // Sync live queue from backend
+      const queueRes = await api.getLiveQueue();
+      if (queueRes.success && Array.isArray(queueRes.data) && queueRes.data.length > 0) {
+        // Merge backend data with local
+        const mappedQueue = queueRes.data.map((item: any) => ({
+          id: item.id || `tok-${item.tokenNumber || 41}`,
+          tokenNumber: item.tokenNumber || 41,
+          produceId: item.produceId || `PRD-TNJ-2026-${800 + (item.tokenNumber || 41)}`,
+          farmerId: item.farmerId || 'F-TN-2026-8841',
+          farmerName: item.farmerName || 'Farmer',
+          farmerPhone: item.farmerPhone || '+91 98421 76540',
+          farmerVillage: item.farmerVillage || 'Thanjavur',
+          centreId: item.centreId || 'cnt-a',
+          centreName: item.centreName || 'Centre A – Thanjavur Mandi',
+          slotId: item.slotId || 's2',
+          slotDate: item.slotDate || '2026-08-26',
+          slotTimeWindow: item.slotTimeWindow || '10:00 – 11:00',
+          crop: item.crop || 'Paddy',
+          cropVariety: item.cropVariety || 'ADT-53 (Fine)',
+          declaredQuantityKg: item.declaredQuantityKg || 3000,
+          stage: (item.stage || 'verification') as ProcurementStage,
+          status: (item.status || 'Now Serving') as TokenRecord['status'],
+          counterAssigned: item.counterAssigned || 'Counter 1',
+          anomaly: {
+            detected: false,
+            riskScore: 12,
+            riskLevel: 'LOW',
+            status: 'Normal',
+            currentQuantityKg: item.declaredQuantityKg || 3000,
+            historicalAvgKg: 2800,
+            landAreaAcres: 3.5,
+            yieldPerAcre: 857,
+            expectedMaxYieldKg: 8400,
+            reason: 'Normal declared yield within agronomic limits.'
+          },
+          estimatedWaitMinutes: item.status === 'Now Serving' ? 0 : 15,
+          farmersAhead: item.status === 'Now Serving' ? 0 : 2,
+          createdAt: new Date().toISOString()
+        }));
+        setLiveQueue(mappedQueue);
+      }
+    }
+    return healthy;
+  }, []);
+
+  // Initial check & auto-login with backend
+  useEffect(() => {
+    checkBackendHealth().then((connected) => {
+      if (connected) {
+        api.login(user.phone || '+91 98421 76540', role);
+      }
+    });
+  }, []);
+
+  const setRole = (newRole: UserRole) => {
+    setRoleState(newRole);
+    const newUser = mockUsers[newRole];
+    setUser(newUser);
+    localStorage.setItem('agri_role', newRole);
+    setCurrentTab('dashboard');
+    // Notify backend of role switch
+    api.login(newUser.phone, newRole);
+  };
+
+  const login = async (selectedRole: UserRole, mobileOrId?: string) => {
+    setIsLoggedIn(true);
+    setRole(selectedRole);
+    localStorage.setItem('agri_logged_in', 'true');
+
+    // Trigger backend login
+    const loginRes = await api.login(mobileOrId || mockUsers[selectedRole].phone, selectedRole);
+    if (loginRes.success) {
+      setIsBackendConnected(true);
+    }
+    addToast(t.loginSuccessToast, `${t.greetingMorning}, ${mockUsers[selectedRole].name}`, 'success');
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('agri_logged_in');
+    api.setToken(null);
+    addToast(t.logoutToast, '', 'info');
   };
 
   // Slot Management
@@ -284,6 +363,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setLiveQueue(prev => [...prev, newToken]);
     setActiveFarmerToken(newToken);
 
+    // Call Backend API
+    api.createBooking({
+      centre_id: selectedCentre.id,
+      slot_id: slotId,
+      crop,
+      quantity_kg: quantityKg
+    }).then(res => {
+      if (res.success) {
+        setIsBackendConnected(true);
+      }
+    });
+
     // Update slot capacity count
     setSlots(prev => prev.map(s => {
       if (s.id === slotId) {
@@ -307,17 +398,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return newToken;
   };
 
-  // Advance Queue Simulation
+  // Advance Queue Simulation & Backend call
   const advanceQueue = () => {
     setLiveQueue(prev => {
       if (prev.length === 0) return prev;
 
-      // Find first serving or first waiting
       const servingIdx = prev.findIndex(t => t.status === 'Now Serving');
       let updated = [...prev];
 
       if (servingIdx !== -1) {
-        // Complete current serving
         const completedToken = updated[servingIdx];
         updated[servingIdx] = {
           ...completedToken,
@@ -326,28 +415,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           completedAt: new Date().toISOString()
         };
 
-        // If it was active farmer
         if (activeFarmerToken && activeFarmerToken.id === completedToken.id) {
           setActiveFarmerToken(updated[servingIdx]);
         }
       }
 
-      // Find next in queue to serve
       const nextIdx = updated.findIndex(t => t.status === 'Arrived' || t.status === 'Booked');
       if (nextIdx !== -1) {
+        const nextToken = updated[nextIdx];
         updated[nextIdx] = {
-          ...updated[nextIdx],
+          ...nextToken,
           status: 'Now Serving',
           stage: 'verification',
           counterAssigned: 'Counter 1'
         };
 
-        // If it was active farmer
+        // Notify backend of queue call
+        api.callNextToken(nextToken.id);
+
         if (activeFarmerToken && activeFarmerToken.id === updated[nextIdx].id) {
           setActiveFarmerToken(updated[nextIdx]);
         }
 
-        // Recalculate wait times & ahead counts for remaining
         let aheadCounter = 0;
         updated = updated.map((item, idx) => {
           if (idx <= nextIdx) {
@@ -368,7 +457,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           return item;
         });
 
-        // Update active counter token
         setCounters(cList => cList.map(c => c.id === 'cnt-1' ? { ...c, currentTokenNumber: updated[nextIdx].tokenNumber } : c));
 
         addToast(
@@ -409,6 +497,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
       return t;
     }));
+
+    // Send quality inspection to backend if stage is quality/grading
+    if (grade && moisture !== undefined) {
+      api.recordQuality(tokenId, {
+        grade: grade,
+        moisture_percentage: moisture,
+        remarks: remarks
+      });
+    }
+
+    // Send weighment to backend if stage is weighbridge
+    if (actualKg) {
+      api.recordWeighment(tokenId, {
+        gross_weight_kg: actualKg + 500,
+        tare_weight_kg: 500
+      });
+    }
 
     // If completed, generate payment record automatically
     if (newStage === 'procurement_completed' || newStage === 'payment_processing') {
@@ -570,6 +675,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isLoggedIn,
         login,
         logout,
+        isBackendConnected,
+        checkBackendHealth,
         theme,
         toggleTheme,
         language,

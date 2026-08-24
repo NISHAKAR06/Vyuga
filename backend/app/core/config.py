@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     API_V1_STR: str = "/api/v1"
 
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/smartprocure"
+    DATABASE_URL: str = "sqlite+aiosqlite:///./smartprocure.db"
     REDIS_URL: str = "redis://localhost:6379/0"
 
     JWT_SECRET: str = "smartprocure_super_secret_jwt_key_2026_change_in_prod"

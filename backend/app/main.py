@@ -16,6 +16,26 @@ from app.api.v1.payments import router as payments_router
 from app.api.v1.analytics import router as analytics_router
 from app.api.v1.ws import router as ws_router
 
+from contextlib import asynccontextmanager
+from app.core.database import engine, Base
+# Import models to ensure registered on metadata
+import app.models.user
+import app.models.farmer
+import app.models.centre
+import app.models.procurement
+import app.models.booking
+import app.models.payment
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        logger.info("Database tables verified/initialized successfully.")
+    except Exception as e:
+        logger.warning(f"Database table initialization notice: {e}")
+    yield
+
 setup_logging()
 
 app = FastAPI(
@@ -23,7 +43,8 @@ app = FastAPI(
     version=settings.VERSION,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
     docs_url=f"{settings.API_V1_STR}/docs",
-    redoc_url=f"{settings.API_V1_STR}/redoc"
+    redoc_url=f"{settings.API_V1_STR}/redoc",
+    lifespan=lifespan
 )
 
 # CORS Setup
