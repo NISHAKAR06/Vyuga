@@ -65,13 +65,13 @@ export const FarmerRecords: React.FC = () => {
           <table className="w-full text-left text-xs">
             <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-800/40 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               <tr>
-                <th className="px-5 py-3.5">Farmer ID / Token</th>
-                <th className="px-5 py-3.5">Farmer Name</th>
-                <th className="px-5 py-3.5">Land Area</th>
-                <th className="px-5 py-3.5">Produce & Qty</th>
-                <th className="px-5 py-3.5">Slot Booked</th>
-                <th className="px-5 py-3.5">Anomaly Status</th>
-                <th className="px-5 py-3.5 text-right">Details</th>
+                <th className="px-5 py-3.5">{t.thFarmerToken}</th>
+                <th className="px-5 py-3.5">{t.thFarmerName}</th>
+                <th className="px-5 py-3.5">{t.thLandArea}</th>
+                <th className="px-5 py-3.5">{t.thProduceQty}</th>
+                <th className="px-5 py-3.5">{t.thBookedSlot}</th>
+                <th className="px-5 py-3.5">{t.thAnomalyStatus}</th>
+                <th className="px-5 py-3.5 text-right">{t.tableAction}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-medium text-slate-700 dark:text-slate-300">
@@ -109,7 +109,7 @@ export const FarmerRecords: React.FC = () => {
                       className="rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                     >
                       <Eye className="h-3.5 w-3.5 inline mr-1" />
-                      <span>View</span>
+                      <span>{t.btnView}</span>
                     </button>
                   </td>
                 </tr>
@@ -131,36 +131,36 @@ export const FarmerRecords: React.FC = () => {
           <div className="space-y-4 text-xs">
             <div className="grid grid-cols-2 gap-3 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl">
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Village & District</span>
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">{t.village}</span>
                 <span className="font-bold text-slate-900 dark:text-white">{selectedFarmer.farmerVillage}</span>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Phone</span>
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">{t.mobileNumber}</span>
                 <span className="font-bold text-slate-900 dark:text-white">{selectedFarmer.farmerPhone}</span>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Produce ID</span>
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">{t.produceIdGenerated}</span>
                 <span className="font-mono font-bold text-slate-900 dark:text-white">{selectedFarmer.produceId}</span>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Slot Time</span>
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">{t.thTimeWindow}</span>
                 <span className="font-bold text-slate-900 dark:text-white">{selectedFarmer.slotTimeWindow}</span>
               </div>
             </div>
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-4">
-              <h4 className="font-bold text-slate-900 dark:text-white mb-2">Agronomic & Yield Assessment</h4>
+              <h4 className="font-bold text-slate-900 dark:text-white mb-2">{t.officerAgronomicAssessment}</h4>
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <span className="text-[10px] text-slate-400 block">Declared Quantity</span>
+                  <span className="text-[10px] text-slate-400 block">{t.declaredQuantity}</span>
                   <span className="font-black text-emerald-600">{selectedFarmer.declaredQuantityKg} kg</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 block">Historical Average</span>
+                  <span className="text-[10px] text-slate-400 block">{t.thHistoricalAvg}</span>
                   <span className="font-bold">{selectedFarmer.anomaly.historicalAvgKg} kg</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 block">Risk Score</span>
+                  <span className="text-[10px] text-slate-400 block">{t.thRiskScore}</span>
                   <span className="font-bold text-amber-600">{selectedFarmer.anomaly.riskScore}/100</span>
                 </div>
               </div>

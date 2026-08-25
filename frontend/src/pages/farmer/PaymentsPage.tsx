@@ -23,6 +23,44 @@ export const PaymentsPage: React.FC = () => {
     addToast('DBT Statement Downloaded', 'Payment remittance voucher downloaded as PDF', 'success');
   };
 
+  const timelineSteps = [
+    {
+      title: t.paymentStage1Title,
+      description: t.paymentStage1Desc,
+      timestamp: '2026-08-26 11:30 AM',
+      completed: true,
+      current: false
+    },
+    {
+      title: t.paymentStage2Title,
+      description: t.paymentStage2Desc,
+      timestamp: '2026-08-26 11:35 AM',
+      completed: true,
+      current: false
+    },
+    {
+      title: t.paymentStage3Title,
+      description: t.paymentStage3Desc,
+      timestamp: '2026-08-26 11:45 AM',
+      completed: true,
+      current: false
+    },
+    {
+      title: t.paymentStage4Title,
+      description: t.paymentStage4Desc,
+      timestamp: t.paymentStage4Est,
+      completed: false,
+      current: true
+    },
+    {
+      title: t.paymentStage5Title,
+      description: t.paymentStage5Desc,
+      timestamp: t.paymentStage5Status,
+      completed: false,
+      current: false
+    }
+  ];
+
   return (
     <div className="mx-auto max-w-5xl space-y-6">
       {/* Header */}
@@ -32,7 +70,7 @@ export const PaymentsPage: React.FC = () => {
             {t.paymentsTitle}
           </h2>
           <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-            Aadhaar-enabled Direct Benefit Transfer (DBT) via Public Financial Management System (PFMS)
+            {t.paymentsSubtitle}
           </p>
         </div>
 
@@ -41,7 +79,7 @@ export const PaymentsPage: React.FC = () => {
           className="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm transition-colors"
         >
           <Download className="h-4 w-4 text-emerald-800 dark:text-emerald-400" />
-          <span>Download DBT Statement</span>
+          <span>{t.farmerDownloadDbt}</span>
         </button>
       </div>
 
@@ -52,19 +90,19 @@ export const PaymentsPage: React.FC = () => {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">
-                  TOTAL DBT DISBURSAL AMOUNT
+                  {t.paymentsTotalDisbursal}
                 </span>
                 <div className="mt-1 text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
                   ₹{activePayment.netAmount.toLocaleString('en-IN')}
                 </div>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                  For {activePayment.quantityKg.toLocaleString('en-IN')} kg {activePayment.crop}
+                  {t.paymentsForProduce}
                 </p>
               </div>
 
               <Badge
-                label={activePayment.status}
-                variant={activePayment.status === 'Completed' ? 'completed' : 'processing'}
+                label={t.statusProcessing}
+                variant="processing"
                 size="md"
                 dot
               />
@@ -105,10 +143,10 @@ export const PaymentsPage: React.FC = () => {
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-3 text-xs">
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium">
                 <Building className="h-4 w-4 text-emerald-800 dark:text-emerald-400" />
-                <span>Credited to: <strong>{activePayment.bankName}</strong> ({activePayment.farmerAccount})</span>
+                <span>{t.farmerCreditedTo}: <strong>{activePayment.bankName}</strong> ({activePayment.farmerAccount})</span>
               </div>
               <div className="font-mono text-xs text-slate-500 dark:text-slate-400">
-                UTR: <strong className="text-slate-800 dark:text-slate-200 font-bold">{activePayment.utrNumber}</strong>
+                {t.utrNumberLabel}: <strong className="text-slate-800 dark:text-slate-200 font-bold">{activePayment.utrNumber}</strong>
               </div>
             </div>
           </div>
@@ -121,10 +159,10 @@ export const PaymentsPage: React.FC = () => {
             </h3>
 
             <div className="space-y-5">
-              {activePayment.timeline.map((step, idx) => (
+              {timelineSteps.map((step, idx) => (
                 <div key={idx} className="relative flex items-start gap-4">
                   {/* Connector Line */}
-                  {idx < activePayment.timeline.length - 1 && (
+                  {idx < timelineSteps.length - 1 && (
                     <div
                       className={`absolute left-3.5 top-7 -bottom-5 w-0.5 ${
                         step.completed ? 'bg-emerald-700' : 'bg-slate-200 dark:bg-slate-800'

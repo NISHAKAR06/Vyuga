@@ -326,9 +326,9 @@ export const RegisterProduce: React.FC = () => {
                       onChange={e => setLand({ ...land, season: e.target.value })}
                       className="mt-1.5 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 p-2.5 text-xs font-semibold text-slate-900 dark:text-white"
                     >
-                      <option value="Kharif">Kharif (Monsoon Harvest)</option>
-                      <option value="Rabi">Rabi (Winter Harvest)</option>
-                      <option value="Zaid">Zaid (Summer Crop)</option>
+                      <option value="Kharif">{t.farmerSeasonKharif}</option>
+                      <option value="Rabi">{t.farmerSeasonRabi}</option>
+                      <option value="Zaid">{t.farmerSeasonZaid}</option>
                     </select>
                   </div>
                 </div>
@@ -475,7 +475,7 @@ export const RegisterProduce: React.FC = () => {
 
                 <div className="rounded-xl bg-emerald-50 dark:bg-emerald-950/30 p-3 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
                   <ShieldCheck className="h-4 w-4 shrink-0" />
-                  <span>By submitting, I certify that declared produce is harvested from registered land.</span>
+                  <span>{t.farmerCertifyDeclaration}</span>
                 </div>
               </div>
             )}
@@ -489,7 +489,7 @@ export const RegisterProduce: React.FC = () => {
                   className="flex items-center gap-1.5 rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  <span>Back</span>
+                  <span>{t.btnBack}</span>
                 </button>
               ) : <div />}
 
@@ -499,7 +499,7 @@ export const RegisterProduce: React.FC = () => {
                   onClick={handleNext}
                   className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 shadow-md shadow-emerald-500/20"
                 >
-                  <span>Continue</span>
+                  <span>{t.btnContinue}</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
               ) : (

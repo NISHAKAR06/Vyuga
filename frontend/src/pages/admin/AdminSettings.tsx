@@ -56,7 +56,7 @@ export const AdminSettings: React.FC = () => {
                   <span className="text-[10px] uppercase font-bold text-slate-400">{c.variety}</span>
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-500 block uppercase font-bold">Rate (₹ / Quintal)</label>
+                  <label className="text-[10px] text-slate-500 block uppercase font-bold">{t.thRatePerQtl}</label>
                   <input
                     type="number"
                     value={c.mspPerQuintal}
@@ -81,7 +81,7 @@ export const AdminSettings: React.FC = () => {
           <div className="space-y-4 text-xs">
             <div>
               <div className="flex justify-between text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">
-                <span>Anomaly High-Risk Score Ceiling</span>
+                <span>{t.adminRiskCeiling}</span>
                 <span className="text-rose-600 dark:text-rose-400 font-black">{anomalyThreshold}/100</span>
               </div>
               <input
@@ -99,7 +99,7 @@ export const AdminSettings: React.FC = () => {
 
             <div>
               <div className="flex justify-between text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">
-                <span>Mandi Wait Time Congestion Alert</span>
+                <span>{t.adminCongestionAlert}</span>
                 <span className="text-amber-600 dark:text-amber-400 font-black">{maxWaitAlertMin} min</span>
               </div>
               <input
@@ -123,7 +123,7 @@ export const AdminSettings: React.FC = () => {
             className="flex items-center gap-2 rounded-2xl bg-purple-600 px-6 py-3 text-xs font-black uppercase tracking-wider text-white hover:bg-purple-500 shadow-md shadow-purple-500/25 transition-all"
           >
             <Save className="h-4 w-4" />
-            <span>Save System Settings</span>
+            <span>{t.adminSaveSettings}</span>
           </button>
         </div>
       </form>

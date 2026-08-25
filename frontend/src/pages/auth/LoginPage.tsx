@@ -80,7 +80,7 @@ export const LoginPage: React.FC = () => {
       <div className="border-b border-slate-200 bg-slate-100 dark:border-slate-800 dark:bg-slate-900/90 text-[11px] font-medium text-slate-600 dark:text-slate-400 py-1.5 px-4 sm:px-8">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <span>Government of Tamil Nadu • தமிழ்நாடு அரசு | TNCSC</span>
-          <span>Official Procurement Portal • Kharif 2026-27</span>
+          <span>{t.authPortalBadge}</span>
         </div>
       </div>
 
@@ -148,7 +148,7 @@ export const LoginPage: React.FC = () => {
               className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-800 dark:hover:text-emerald-400 transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Back to Public Portal</span>
+              <span>{t.authBackToPublic}</span>
             </button>
 
             <button
@@ -156,7 +156,7 @@ export const LoginPage: React.FC = () => {
               className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-400 hover:underline"
             >
               <UserPlus className="h-3.5 w-3.5" />
-              <span>New Farmer Registration</span>
+              <span>{t.authNewFarmerReg}</span>
             </button>
           </div>
 
@@ -168,7 +168,7 @@ export const LoginPage: React.FC = () => {
                 <div>
                   <div className="inline-flex items-center gap-1.5 rounded bg-emerald-800 px-2.5 py-1 text-[11px] font-bold text-emerald-200 mb-3">
                     <ShieldCheck className="h-3.5 w-3.5" />
-                    <span>Official Verified Access</span>
+                    <span>{t.authOfficialVerified}</span>
                   </div>
                   <h2 className="text-2xl font-bold tracking-tight">
                     Authorized Sign-In
@@ -183,31 +183,31 @@ export const LoginPage: React.FC = () => {
                   <div className="flex items-start gap-3 rounded-lg bg-emerald-950/60 p-3 border border-emerald-800/80">
                     <Scale className="h-4 w-4 shrink-0 text-emerald-300 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-white">Calibrated Electronic Weighbridges</h4>
-                      <p className="text-[11px] text-emerald-200/80 mt-0.5">Automated gross and tare recording with instant digital receipt generation.</p>
+                      <h4 className="font-bold text-white">{t.authWeighbridgeTitle}</h4>
+                      <p className="text-[11px] text-emerald-200/80 mt-0.5">{t.authWeighbridgeDesc}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3 rounded-lg bg-emerald-950/60 p-3 border border-emerald-800/80">
                     <Clock className="h-4 w-4 shrink-0 text-emerald-300 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-white">Standard Arrival Slots</h4>
-                      <p className="text-[11px] text-emerald-200/80 mt-0.5">Farmers choose suitable 1-hour time slots to prevent long mandi queues.</p>
+                      <h4 className="font-bold text-white">{t.authSlotTitle}</h4>
+                      <p className="text-[11px] text-emerald-200/80 mt-0.5">{t.authSlotDesc}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3 rounded-lg bg-emerald-950/60 p-3 border border-emerald-800/80">
                     <CreditCard className="h-4 w-4 shrink-0 text-emerald-300 mt-0.5" />
                     <div>
-                      <h4 className="font-bold text-white">Direct Benefit Transfer (DBT)</h4>
-                      <p className="text-[11px] text-emerald-200/80 mt-0.5">Guaranteed direct credit to Aadhaar-linked bank accounts in 24–48 hours.</p>
+                      <h4 className="font-bold text-white">{t.authDbtTitle}</h4>
+                      <p className="text-[11px] text-emerald-200/80 mt-0.5">{t.authDbtDesc}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="mt-8 border-t border-emerald-800 pt-3 text-[10px] text-emerald-300">
-                <span>Helpline: 1800-425-7890 • Tamil Nadu Civil Supplies Corporation</span>
+                <span>{t.authHelpline}</span>
               </div>
             </div>
 
@@ -297,7 +297,7 @@ export const LoginPage: React.FC = () => {
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Quick Role Test Accounts
                   </span>
-                  <span className="text-[10px] text-emerald-800 dark:text-emerald-400 font-bold">1-Click Login</span>
+                  <span className="text-[10px] text-emerald-800 dark:text-emerald-400 font-bold">{t.authQuick1Click}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <button

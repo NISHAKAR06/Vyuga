@@ -129,8 +129,8 @@ export const LiveQueuePage: React.FC = () => {
                 </div>
 
                 <div className="mt-2.5 flex items-center justify-between border-t border-slate-200/60 dark:border-slate-800 pt-2 text-[11px] text-slate-500 dark:text-slate-400">
-                  <span>Officer: {c.officerName.split(' ')[1] || c.officerName}</span>
-                  <span>Served: {c.servedTodayCount}</span>
+                  <span>{t.counterOfficer}: {c.officerName.split(' ')[1] || c.officerName}</span>
+                  <span>{t.counterServed}: {c.servedTodayCount}</span>
                 </div>
               </div>
             );
@@ -144,7 +144,7 @@ export const LiveQueuePage: React.FC = () => {
         <div>
           <h4 className="font-bold text-slate-900 dark:text-white">How is the turnaround time calculated?</h4>
           <p className="mt-0.5 text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
-            {t.aiWaitTooltip} The dynamic queue telemetry adapts in real-time as weighbridge tokens are processed.
+            {t.turnaroundFaqBody}
           </p>
         </div>
       </div>

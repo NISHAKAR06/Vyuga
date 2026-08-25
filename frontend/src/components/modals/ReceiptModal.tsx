@@ -10,7 +10,7 @@ interface ReceiptModalProps {
 }
 
 export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, record }) => {
-  const { user, addToast } = useApp();
+  const { user, addToast, t } = useApp();
 
   if (!record) return null;
 
@@ -41,14 +41,14 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, rec
               className="flex items-center gap-1.5 rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
             >
               <Printer className="h-4 w-4" />
-              <span>Print Slip</span>
+              <span>{t.print}</span>
             </button>
             <button
               onClick={handleDownload}
               className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500 shadow-sm"
             >
               <Download className="h-4 w-4" />
-              <span>Download PDF</span>
+              <span>{t.modalReceiptDownloadPdf}</span>
             </button>
           </div>
         </div>
@@ -119,7 +119,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, rec
           <div className="flex items-center gap-2">
             <QrCode className="h-10 w-10 text-slate-800 dark:text-slate-200" />
             <div className="text-[10px] text-slate-400">
-              <span className="block font-bold text-emerald-600">✓ CERTIFIED</span>
+              <span className="block font-bold text-emerald-600">{t.modalReceiptCertified}</span>
               Weighbridge #01
             </div>
           </div>

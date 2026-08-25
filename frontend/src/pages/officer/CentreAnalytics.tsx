@@ -34,7 +34,7 @@ export const CentreAnalytics: React.FC = () => {
             <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
               Weekly Procurement Intake Volume
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Actual Tonnage vs Mandi Daily Intake Capacity</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t.centreWeeklyIntakeSub}</p>
           </div>
           <span className="rounded bg-emerald-100 dark:bg-emerald-950 px-2.5 py-0.5 text-xs font-bold text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
             2,800 Tons Total (Week)
@@ -49,34 +49,34 @@ export const CentreAnalytics: React.FC = () => {
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
             <Clock className="h-4 w-4 text-emerald-800 dark:text-emerald-400" />
-            <span>Avg Weighment Time</span>
+            <span>{t.centreAvgWeighmentTime}</span>
           </div>
           <div className="mt-2 text-2xl font-black text-slate-900 dark:text-white">
             3.8 min
           </div>
-          <p className="mt-1 text-xs text-slate-500">Per vehicle gross & tare cycle</p>
+          <p className="mt-1 text-xs text-slate-500">{t.centreAvgWeighmentSub}</p>
         </div>
 
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
             <Scale className="h-4 w-4 text-blue-700 dark:text-blue-400" />
-            <span>Daily Intake Pace</span>
+            <span>{t.centreDailyPace}</span>
           </div>
           <div className="mt-2 text-2xl font-black text-slate-900 dark:text-white">
             18.5 Tons / hr
           </div>
-          <p className="mt-1 text-xs text-slate-500">Peak hour throughput</p>
+          <p className="mt-1 text-xs text-slate-500">{t.centreDailyPaceSub}</p>
         </div>
 
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
             <CheckCircle2 className="h-4 w-4 text-slate-700 dark:text-slate-300" />
-            <span>No-Show Rate</span>
+            <span>{t.centreNoShowRate}</span>
           </div>
           <div className="mt-2 text-2xl font-black text-slate-900 dark:text-white">
             2.1%
           </div>
-          <p className="mt-1 text-xs text-slate-500">Farmers missing assigned slot</p>
+          <p className="mt-1 text-xs text-slate-500">{t.centreNoShowSub}</p>
         </div>
       </div>
     </div>

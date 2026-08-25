@@ -23,7 +23,7 @@ import {
 
 export const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
-  const { login, theme, toggleTheme, language, setLanguage, addToast } = useApp();
+  const { login, theme, toggleTheme, language, setLanguage, addToast, t } = useApp();
 
   const [selectedRole, setSelectedRole] = useState<UserRole>('farmer');
   const [step, setStep] = useState<number>(1);
@@ -156,7 +156,7 @@ export const SignUpPage: React.FC = () => {
               className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-emerald-800 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Back to Public Portal</span>
+              <span>{t.authBackToPublic}</span>
             </button>
             <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
               Already registered?{' '}
@@ -469,10 +469,10 @@ export const SignUpPage: React.FC = () => {
                   className="flex-[2] inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-800 hover:bg-emerald-900 py-2.5 text-xs font-bold text-white shadow transition-colors disabled:opacity-50"
                 >
                   {loading ? (
-                    <span>Submitting Application...</span>
+                    <span>{t.authSubmittingApp}</span>
                   ) : step === 3 ? (
                     <>
-                      <span>Submit Farmer Registration</span>
+                      <span>{t.authSubmitRegBtn}</span>
                       <CheckCircle2 className="h-4 w-4" />
                     </>
                   ) : (

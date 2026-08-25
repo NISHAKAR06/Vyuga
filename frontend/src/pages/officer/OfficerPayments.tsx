@@ -78,12 +78,12 @@ export const OfficerPayments: React.FC = () => {
           <table className="w-full text-left text-xs">
             <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-800/40 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               <tr>
-                <th className="px-5 py-3.5">Procurement ID</th>
-                <th className="px-5 py-3.5">Farmer Details</th>
-                <th className="px-5 py-3.5">Crop & Certified Qty</th>
-                <th className="px-5 py-3.5">DBT Disbursal Amount</th>
-                <th className="px-5 py-3.5">Status</th>
-                <th className="px-5 py-3.5 text-right">Gateway Action</th>
+                <th className="px-5 py-3.5">{t.thProcurementId}</th>
+                <th className="px-5 py-3.5">{t.thFarmerDetails}</th>
+                <th className="px-5 py-3.5">{t.thCertifiedQty}</th>
+                <th className="px-5 py-3.5">{t.thDbtAmount}</th>
+                <th className="px-5 py-3.5">{t.tableStatus}</th>
+                <th className="px-5 py-3.5 text-right">{t.thGatewayAction}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-medium text-slate-700 dark:text-slate-300">

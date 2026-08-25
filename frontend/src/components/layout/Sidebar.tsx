@@ -180,11 +180,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center gap-2">
             <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-[11px] font-bold text-emerald-800 dark:text-emerald-300">
-              Procurement Live
+              {t.sidebarProcurementLive}
             </span>
           </div>
           <p className="mt-1 text-[10px] text-slate-500 dark:text-slate-400">
-            Kharif Procurement Season 2026-27 Active
+            {t.sidebarKharifActive}
           </p>
         </div>
       </aside>

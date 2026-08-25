@@ -119,28 +119,28 @@ export const OfficerLiveQueue: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 text-xs">
             <div className="rounded-lg bg-white dark:bg-slate-900 p-3 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Produce</span>
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">{t.tableCrop}</span>
               <span className="text-xs font-bold text-slate-900 dark:text-white mt-0.5 block">
                 {servingToken.crop} ({servingToken.cropVariety})
               </span>
             </div>
 
             <div className="rounded-lg bg-white dark:bg-slate-900 p-3 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Declared Quantity</span>
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">{t.declaredQuantity}</span>
               <span className="text-xs font-bold text-emerald-800 dark:text-emerald-400 mt-0.5 block">
                 {servingToken.declaredQuantityKg.toLocaleString('en-IN')} kg
               </span>
             </div>
 
             <div className="rounded-lg bg-white dark:bg-slate-900 p-3 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Booked Slot</span>
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">{t.thBookedSlot}</span>
               <span className="text-xs font-bold text-slate-900 dark:text-white mt-0.5 block">
                 {servingToken.slotTimeWindow}
               </span>
             </div>
 
             <div className="rounded-lg bg-white dark:bg-slate-900 p-3 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Current Stage</span>
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">{t.tableStatus}</span>
               <span className="text-xs font-bold text-blue-700 dark:text-blue-400 mt-0.5 block">
                 {servingToken.stage.replace(/_/g, ' ').toUpperCase()}
               </span>
@@ -177,7 +177,7 @@ export const OfficerLiveQueue: React.FC = () => {
       ) : (
         <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-800 p-8 text-center bg-white dark:bg-slate-900">
           <Users className="h-8 w-8 text-slate-400 mx-auto mb-2" />
-          <h4 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200">No Farmer Currently at Weighbridge</h4>
+          <h4 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200">{t.officerNoFarmerWeighbridge}</h4>
           <button
             onClick={advanceQueue}
             className="mt-3 rounded-lg bg-emerald-800 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-900 transition-colors"
@@ -192,7 +192,7 @@ export const OfficerLiveQueue: React.FC = () => {
         <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 p-4">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              Upcoming Queue ({waitingTokens.length} Farmers Waiting)
+              Upcoming Queue ({waitingTokens.length} {t.officerFarmersWaitingSuffix})
             </h3>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
               Farmers scheduled for intake sorted by token order
@@ -205,12 +205,12 @@ export const OfficerLiveQueue: React.FC = () => {
             <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               <tr>
                 <th className="px-4 py-3">Token #</th>
-                <th className="px-4 py-3">Farmer Name</th>
-                <th className="px-4 py-3">Crop & Qty</th>
-                <th className="px-4 py-3">Slot Window</th>
-                <th className="px-4 py-3">Anomaly Status</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3 text-right">Desk Actions</th>
+                <th className="px-4 py-3">{t.thFarmerName}</th>
+                <th className="px-4 py-3">{t.thProduceQty}</th>
+                <th className="px-4 py-3">{t.thTimeWindow}</th>
+                <th className="px-4 py-3">{t.thAnomalyStatus}</th>
+                <th className="px-4 py-3">{t.tableStatus}</th>
+                <th className="px-4 py-3 text-right">{t.thDeskActions}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-medium text-slate-700 dark:text-slate-300">

@@ -132,12 +132,12 @@ export const ReportsPage: React.FC = () => {
           <table className="w-full text-left text-xs">
             <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 font-bold uppercase text-[10px] text-slate-500 dark:text-slate-400">
               <tr>
-                <th className="p-3">District / Mandi</th>
-                <th className="p-3">Farmers Serviced</th>
-                <th className="p-3">Quantity (Tons)</th>
-                <th className="p-3">Total Value (INR)</th>
-                <th className="p-3">Avg Wait Time</th>
-                <th className="p-3">Status</th>
+                <th className="p-3">{t.tableCentre}</th>
+                <th className="p-3">{t.thFarmersServiced}</th>
+                <th className="p-3">{t.thQuantityTons}</th>
+                <th className="p-3">{t.thTotalValueInr}</th>
+                <th className="p-3">{t.averageWaitTime}</th>
+                <th className="p-3">{t.tableStatus}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">

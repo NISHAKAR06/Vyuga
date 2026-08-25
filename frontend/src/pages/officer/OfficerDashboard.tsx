@@ -165,11 +165,11 @@ export const OfficerDashboard: React.FC = () => {
               <span className="text-base font-bold text-slate-900 dark:text-white">27 min</span>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-bold text-purple-600 block">Next Hour Forecast</span>
+              <span className="text-[10px] uppercase font-bold text-purple-600 block">{t.officerForecastNextHour}</span>
               <span className="text-base font-black text-purple-600 dark:text-purple-400">34 min</span>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-bold text-amber-600 block">Predicted Crowd Level</span>
+              <span className="text-[10px] uppercase font-bold text-amber-600 block">{t.officerPredictedCrowd}</span>
               <span className="text-base font-black text-amber-600 dark:text-amber-400">HIGH</span>
             </div>
           </div>
@@ -185,7 +185,7 @@ export const OfficerDashboard: React.FC = () => {
                   {t.anomalyAlertsTitle}
                 </h3>
               </div>
-              <Badge label={`${unresolvedAnomalies.length} Flagged`} variant="anomaly" size="sm" />
+              <Badge label={`${unresolvedAnomalies.length} {t.officerFlaggedCount}`} variant="anomaly" size="sm" />
             </div>
 
             <div className="mt-4 space-y-3">
@@ -216,7 +216,7 @@ export const OfficerDashboard: React.FC = () => {
               onClick={() => setCurrentTab('anomaly_alerts')}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 py-3 text-xs font-bold text-white hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors"
             >
-              <span>Review All Anomaly Alerts</span>
+              <span>{t.officerReviewAllAnomalies}</span>
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>

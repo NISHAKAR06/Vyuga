@@ -38,7 +38,7 @@ export const CreateSlotModal: React.FC<CreateSlotModalProps> = ({ isOpen, onClos
       isOpen={isOpen}
       onClose={onClose}
       title={t.createSlot}
-      subtitle="Configure new farmer intake time window and capacity limit"
+      subtitle={t.createSlotSubtitle}
       maxWidth="md"
     >
       <form onSubmit={handleSubmit} className="space-y-4">

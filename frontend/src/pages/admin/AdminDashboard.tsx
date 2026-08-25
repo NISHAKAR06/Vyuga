@@ -30,7 +30,7 @@ export const AdminDashboard: React.FC = () => {
               <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700">
                 STATE HEADQUARTERS
               </span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">Food & Civil Supplies Department</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">{t.adminFoodDept}</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
               {t.adminTitle}
@@ -46,14 +46,14 @@ export const AdminDashboard: React.FC = () => {
               className="inline-flex items-center gap-2 rounded-lg bg-emerald-800 hover:bg-emerald-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
             >
               <TrendingUp className="h-4 w-4" />
-              <span>State Capacity Analytics</span>
+              <span>{t.adminStateCapacityBtn}</span>
             </button>
             <button
               onClick={() => setCurrentTab('reports')}
               className="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
             >
               <FileText className="h-4 w-4 text-slate-600 dark:text-slate-400" />
-              <span>Export State Reports</span>
+              <span>{t.adminExportReportsBtn}</span>
             </button>
           </div>
         </div>
@@ -144,7 +144,7 @@ export const AdminDashboard: React.FC = () => {
             onClick={() => setCurrentTab('centres')}
             className="text-xs font-bold text-emerald-800 dark:text-emerald-400 hover:underline flex items-center gap-1"
           >
-            <span>All DPC Centres</span>
+            <span>{t.adminAllDpcCentres}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
@@ -153,12 +153,12 @@ export const AdminDashboard: React.FC = () => {
           <table className="w-full text-left text-xs">
             <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               <tr>
-                <th className="px-4 py-3">District</th>
-                <th className="px-4 py-3">Active Mandis</th>
-                <th className="px-4 py-3">Farmers Today</th>
-                <th className="px-4 py-3">Procured Tonnage</th>
-                <th className="px-4 py-3">Avg Wait Time</th>
-                <th className="px-4 py-3">Load Status</th>
+                <th className="px-4 py-3">{t.adminDistrict}</th>
+                <th className="px-4 py-3">{t.thActiveMandis}</th>
+                <th className="px-4 py-3">{t.todaysFarmers}</th>
+                <th className="px-4 py-3">{t.thIntakeTonnage}</th>
+                <th className="px-4 py-3">{t.averageWaitTime}</th>
+                <th className="px-4 py-3">{t.thLoadStatus}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-medium text-slate-700 dark:text-slate-300">

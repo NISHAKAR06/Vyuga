@@ -2,6 +2,7 @@ import React from 'react';
 import { TokenRecord } from '../../types';
 import { Badge } from '../ui/Badge';
 import { Clock, UserCheck, Play, Sparkles } from 'lucide-react';
+import { useApp } from '../../context/AppContext';
 
 interface QueueVisualizerProps {
   queue: TokenRecord[];
@@ -16,6 +17,7 @@ export const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
   onAdvance,
   showAdminControls = false
 }) => {
+  const { t } = useApp();
   const servingToken = queue.find(q => q.status === 'Now Serving');
   const waitingTokens = queue.filter(q => q.status === 'Booked' || q.status === 'Arrived');
   const nextToken = waitingTokens[0];
@@ -38,7 +40,7 @@ export const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
             className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-emerald-500 shadow-sm transition-all active:scale-95"
           >
             <Play className="h-3.5 w-3.5 fill-current" />
-            <span>Advance Next Token (Simulate)</span>
+            <span>{t.simulateNextFarmer}</span>
           </button>
         )}
       </div>
@@ -49,7 +51,7 @@ export const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
         <div className="relative overflow-hidden rounded-xl border border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/40 p-4">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-            <span>Now Serving</span>
+            <span>{t.nowServing}</span>
           </div>
           <div className="mt-2 text-2xl font-black text-emerald-600 dark:text-emerald-400">
             #{servingToken ? servingToken.tokenNumber : 'None'}
@@ -79,14 +81,14 @@ export const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
             : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40'
         }`}>
           <div className="flex items-center justify-between text-xs font-semibold text-blue-700 dark:text-blue-300">
-            <span>Your Token</span>
+            <span>{t.yourToken}</span>
             {userToken && <Badge label="Confirmed" variant="completed" size="sm" />}
           </div>
           <div className="mt-2 text-2xl font-black text-blue-600 dark:text-blue-400">
             #{userToken ? userToken.tokenNumber : 'No Token'}
           </div>
           <p className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">
-            {userToken ? `${userToken.farmersAhead} ahead` : 'Book a slot'}
+            {userToken ? `${userToken.farmersAhead} ${t.queueAhead}` : 'Book a slot'}
           </p>
         </div>
 
@@ -94,7 +96,7 @@ export const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
         <div className="rounded-xl border border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/40 p-4">
           <div className="flex items-center gap-1 text-xs font-semibold text-amber-700 dark:text-amber-300">
             <Sparkles className="h-3 w-3" />
-            <span>Estimated Wait</span>
+            <span>{t.estimatedWaitMinutes}</span>
           </div>
           <div className="mt-2 text-2xl font-black text-amber-600 dark:text-amber-400">
             {userToken ? `${userToken.estimatedWaitMinutes} min` : '27 min avg'}
@@ -112,7 +114,7 @@ export const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
             Current Queue Sequence
           </span>
           <span className="text-xs text-slate-400">
-            {waitingTokens.length + (servingToken ? 1 : 0)} Total in Queue
+            {waitingTokens.length + (servingToken ? 1 : 0)} {t.queueTotalInQueue}
           </span>
         </div>
 
@@ -130,7 +132,7 @@ export const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                 {servingToken.farmerName.split(' ')[1] || servingToken.farmerName}
               </span>
               <span className="text-[10px] text-emerald-600 dark:text-emerald-400">
-                Counter 1
+                {t.queueCounter} 1
               </span>
             </div>
           )}

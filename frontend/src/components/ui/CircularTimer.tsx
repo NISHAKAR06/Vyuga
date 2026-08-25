@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, Clock, ArrowRight, Activity } from 'lucide-react';
 import { Tooltip } from './Tooltip';
+import { useApp } from '../../context/AppContext';
 
 interface CircularTimerProps {
   waitMinutes: number;
@@ -21,6 +22,7 @@ export const CircularTimer: React.FC<CircularTimerProps> = ({
   tooltipText,
   onViewQueue
 }) => {
+  const { t } = useApp();
   const radius = 52;
   const circumference = 2 * Math.PI * radius;
   const progress = Math.min(100, Math.max(5, (waitMinutes / maxWaitMinutes) * 100));
@@ -92,7 +94,7 @@ export const CircularTimer: React.FC<CircularTimerProps> = ({
           <div className="flex items-center justify-between gap-4 rounded-lg bg-slate-50 dark:bg-slate-800/60 px-3.5 py-2 border border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300">
               <span className="h-2 w-2 rounded-full bg-emerald-700" />
-              <span>Now Serving</span>
+              <span>{t.nowServing}</span>
             </div>
             <span className="text-xs font-bold text-slate-900 dark:text-white">
               #{nowServingNumber}
@@ -102,7 +104,7 @@ export const CircularTimer: React.FC<CircularTimerProps> = ({
           <div className="flex items-center justify-between gap-4 rounded-lg bg-emerald-50 dark:bg-emerald-950/80 px-3.5 py-2 border border-emerald-300 dark:border-emerald-800">
             <div className="flex items-center gap-2 text-xs font-bold text-emerald-900 dark:text-emerald-300">
               <Clock className="h-3.5 w-3.5" />
-              <span>Your Token</span>
+              <span>{t.yourToken}</span>
             </div>
             <span className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
               #{tokenNumber}
@@ -112,7 +114,7 @@ export const CircularTimer: React.FC<CircularTimerProps> = ({
           <div className="flex items-center justify-between gap-4 rounded-lg bg-slate-50 dark:bg-slate-800/60 px-3.5 py-2 border border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300">
               <Users className="h-3.5 w-3.5" />
-              <span>Farmers Ahead</span>
+              <span>{t.farmersAhead}</span>
             </div>
             <span className="text-xs font-bold text-amber-700 dark:text-amber-400">
               {farmersAhead} Farmers
@@ -131,7 +133,7 @@ export const CircularTimer: React.FC<CircularTimerProps> = ({
             onClick={onViewQueue}
             className="inline-flex items-center gap-1.5 font-bold text-emerald-800 dark:text-emerald-400 hover:underline"
           >
-            <span>Track Mandi Queue</span>
+            <span>{t.viewLiveQueue}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         )}

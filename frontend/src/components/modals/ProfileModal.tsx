@@ -11,19 +11,41 @@ interface ProfileModalProps {
 export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const { user, role, t } = useApp();
 
+  const getSubtitle = () => {
+    switch (role) {
+      case 'farmer':
+        return t.profileSubtitleFarmer;
+      case 'officer':
+        return t.profileSubtitleOfficer;
+      default:
+        return t.profileSubtitleAdmin;
+    }
+  };
+
+  const getRoleTitle = () => {
+    switch (role) {
+      case 'farmer':
+        return t.profileRoleFarmer;
+      case 'officer':
+        return t.profileRoleOfficer;
+      default:
+        return t.profileRoleAdmin;
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       title={t.profile}
-      subtitle={`Verified ${role === 'farmer' ? 'Kisan Portal' : role === 'officer' ? 'Mandi Officer' : 'State Administrator'} Profile`}
+      subtitle={getSubtitle()}
       maxWidth="md"
       footer={
         <button
           onClick={onClose}
           className="rounded-xl bg-slate-900 px-5 py-2 text-xs font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
         >
-          Close
+          {t.btnClose}
         </button>
       }
     >
@@ -41,7 +63,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
               ID: {user.id}
             </p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              {user.designation || 'Registered Farmer Member'}
+              {getRoleTitle()}
             </p>
           </div>
         </div>
@@ -51,7 +73,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
           <div className="flex items-start gap-2.5 rounded-xl border border-slate-100 dark:border-slate-800 p-3">
             <Phone className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
             <div>
-              <span className="text-[10px] text-slate-400 block uppercase font-bold">Mobile</span>
+              <span className="text-[10px] text-slate-400 block uppercase font-bold">{t.modalProfileMobile}</span>
               <span className="font-semibold text-slate-800 dark:text-slate-200">{user.phone}</span>
             </div>
           </div>
@@ -59,7 +81,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
           <div className="flex items-start gap-2.5 rounded-xl border border-slate-100 dark:border-slate-800 p-3">
             <MapPin className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
             <div>
-              <span className="text-[10px] text-slate-400 block uppercase font-bold">Location</span>
+              <span className="text-[10px] text-slate-400 block uppercase font-bold">{t.modalProfileLocation}</span>
               <span className="font-semibold text-slate-800 dark:text-slate-200">{user.location}</span>
             </div>
           </div>
@@ -68,8 +90,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
             <div className="flex items-start gap-2.5 rounded-xl border border-slate-100 dark:border-slate-800 p-3">
               <Tractor className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-bold">Registered Land</span>
-                <span className="font-semibold text-slate-800 dark:text-slate-200">{user.landArea} {user.landUnit || 'Acres'}</span>
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">{t.modalProfileLand}</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{user.landArea} {t.farmerLandAcres}</span>
               </div>
             </div>
           )}
@@ -78,7 +100,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
             <div className="flex items-start gap-2.5 rounded-xl border border-slate-100 dark:border-slate-800 p-3">
               <CreditCard className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-bold">Direct Benefit Transfer (DBT)</span>
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">{t.modalProfileDbt}</span>
                 <span className="font-semibold text-slate-800 dark:text-slate-200">{user.bankAccount}</span>
                 <span className="text-[10px] text-slate-400 block font-mono">{user.ifscCode}</span>
               </div>
@@ -89,7 +111,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
             <div className="col-span-1 sm:col-span-2 flex items-start gap-2.5 rounded-xl border border-slate-100 dark:border-slate-800 p-3">
               <Building className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-bold">Assigned Mandi Centre</span>
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">{t.modalProfileCentre}</span>
                 <span className="font-semibold text-slate-800 dark:text-slate-200">{user.centreName}</span>
               </div>
             </div>
@@ -99,7 +121,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
         {/* Security & Verification Notice */}
         <div className="flex items-center gap-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 text-xs text-slate-500">
           <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0" />
-          <span>Aadhaar biometric and land records e-KYC verified with State Revenue Database.</span>
+          <span>{t.modalProfileEkycNotice}</span>
         </div>
       </div>
     </Modal>

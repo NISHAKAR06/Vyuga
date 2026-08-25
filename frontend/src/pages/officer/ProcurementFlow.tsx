@@ -25,7 +25,7 @@ export const ProcurementFlow: React.FC = () => {
   const [actualQty, setActualQty] = useState<number>(currentToken ? currentToken.declaredQuantityKg : 3000);
   const [moisture, setMoisture] = useState<number>(14.2);
   const [grade, setGrade] = useState<TokenRecord['qualityGrade']>('Grade A');
-  const [remarks, setRemarks] = useState<string>('Standard quality weighbridge certification passed.');
+  const [remarks, setRemarks] = useState<string>('{t.procurementDefaultRemarks}');
 
   const handleAccept = (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,7 +142,7 @@ export const ProcurementFlow: React.FC = () => {
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                {t.actualQuantityKg} (Certified Net Weight) *
+                {t.actualQuantityKg} ({t.procurementCertifiedNetWeight}) *
               </label>
               <input
                 type="number"
@@ -157,7 +157,7 @@ export const ProcurementFlow: React.FC = () => {
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                {t.moisturePercent} (Moisture Analyzer Result) *
+                {t.moisturePercent} ({t.procurementMoistureResult}) *
               </label>
               <input
                 type="number"
@@ -167,21 +167,21 @@ export const ProcurementFlow: React.FC = () => {
                 required
                 className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 p-2.5 text-xs font-semibold text-slate-900 dark:text-white focus:border-emerald-800 focus:outline-none"
               />
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 block">FAQ Moisture Limit: max 17.0%</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 block">{t.officerMoistureStandardDesc}</span>
             </div>
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                {t.qualityGrade} (MSP Pricing Tier) *
+                {t.qualityGrade} ({t.procurementMspTier}) *
               </label>
               <select
                 value={grade}
                 onChange={e => setGrade(e.target.value as any)}
                 className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 p-2.5 text-xs font-semibold text-slate-900 dark:text-white focus:border-emerald-800 focus:outline-none"
               >
-                <option value="Grade A">Grade A (Fine Quality MSP + ₹20/qtl bonus)</option>
-                <option value="Standard (FAQ)">Standard (Fair Average Quality FAQ)</option>
-                <option value="Grade B">Grade B (Standard MSP)</option>
+                <option value="Grade A">{t.officerGradeAPlus}</option>
+                <option value="Standard (FAQ)">{t.officerGradeStandard}</option>
+                <option value="Grade B">{t.officerGradeB}</option>
               </select>
             </div>
 

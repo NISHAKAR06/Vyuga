@@ -58,11 +58,11 @@ export const SlotManagement: React.FC = () => {
           <table className="w-full text-left text-xs">
             <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-800/40 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               <tr>
-                <th className="px-5 py-3.5">Time Window</th>
-                <th className="px-5 py-3.5">Date</th>
-                <th className="px-5 py-3.5">Booked / Max Capacity</th>
-                <th className="px-5 py-3.5">Availability</th>
-                <th className="px-5 py-3.5 text-right">Actions</th>
+                <th className="px-5 py-3.5">{t.thTimeWindow}</th>
+                <th className="px-5 py-3.5">{t.tableDate}</th>
+                <th className="px-5 py-3.5">{t.thMaxCapacity}</th>
+                <th className="px-5 py-3.5">{t.thAvailability}</th>
+                <th className="px-5 py-3.5 text-right">{t.thActions}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-medium text-slate-700 dark:text-slate-300">
@@ -164,7 +164,7 @@ export const SlotManagement: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p className="text-center py-6 text-xs text-slate-400">No farmers booked in this slot yet.</p>
+              <p className="text-center py-6 text-xs text-slate-400">{t.officerNoFarmersInSlot}</p>
             )}
           </div>
         )}

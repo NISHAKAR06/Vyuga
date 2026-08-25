@@ -51,12 +51,12 @@ export const FarmerDashboard: React.FC = () => {
               <span>•</span>
               <div className="flex items-center gap-1.5 font-medium">
                 <Tractor className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400" />
-                <span>{user.landArea} Acres Land</span>
+                <span>{user.landArea} {t.farmerLandAcres}</span>
               </div>
               <span>•</span>
               <div className="flex items-center gap-1.5 font-medium">
                 <span className="h-2 w-2 rounded-full bg-emerald-700 dark:bg-emerald-400" />
-                <span>Crop: {user.crop || 'Paddy (Samba)'}</span>
+                <span>{t.farmerCropPrefix}: {user.crop || 'Paddy (Samba)'}</span>
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@ export const FarmerDashboard: React.FC = () => {
         <KPICard
           title={t.currentProcurement}
           value="3,000 kg"
-          subtitle="Paddy (Ponni Samba)"
+          subtitle="ADT-53 (Ponni)"
           badge={{ text: activeFarmerToken ? t.slotBooked : 'Pending', type: 'success' }}
           icon={Tractor}
           iconColor="text-emerald-800 dark:text-emerald-400"
@@ -108,8 +108,8 @@ export const FarmerDashboard: React.FC = () => {
         <KPICard
           title={t.queuePosition}
           value={activeFarmerToken ? `Token #${activeFarmerToken.tokenNumber}` : 'No Token'}
-          subtitle={activeFarmerToken ? `${activeFarmerToken.farmersAhead} Farmers Ahead` : 'Register to get token'}
-          badge={{ text: activeFarmerToken ? `${activeFarmerToken.farmersAhead} Ahead` : 'Waiting', type: 'warning' }}
+          subtitle={activeFarmerToken ? `${activeFarmerToken.farmersAhead} ${t.timerFarmersAhead}` : 'Register to get token'}
+          badge={{ text: activeFarmerToken ? `${activeFarmerToken.farmersAhead} ${t.queueAhead}` : 'Waiting', type: 'warning' }}
           icon={Users}
           iconColor="text-amber-700 dark:text-amber-400"
           tooltipText="Live position in the Mandi weighbridge intake queue"
@@ -120,7 +120,7 @@ export const FarmerDashboard: React.FC = () => {
         <KPICard
           title={t.aiWaitingTime}
           value={activeFarmerToken ? `${activeFarmerToken.estimatedWaitMinutes} min` : '24 min'}
-          subtitle="Mandi Intake Velocity"
+          subtitle={t.farmerMandiVelocity}
           badge={{ text: t.aiPrediction, type: 'success' }}
           icon={Clock}
           iconColor="text-slate-700 dark:text-slate-300"
@@ -163,24 +163,24 @@ export const FarmerDashboard: React.FC = () => {
                 </div>
                 <div className="flex flex-col items-center justify-center rounded-lg bg-white dark:bg-slate-900 p-2 shadow-sm border border-slate-200 dark:border-slate-800">
                   <QrCode className="h-12 w-12 text-slate-800 dark:text-white" />
-                  <span className="text-[8px] font-mono text-slate-500 mt-0.5">DPC VERIFIED</span>
+                  <span className="text-[8px] font-mono text-slate-500 mt-0.5">{t.farmerDpcVerified}</span>
                 </div>
               </div>
 
               {/* Booking Info */}
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
-                  <span className="text-slate-500 dark:text-slate-400">Centre</span>
+                  <span className="text-slate-500 dark:text-slate-400">{t.tableCentre}</span>
                   <span className="font-semibold text-slate-800 dark:text-slate-200">{activeFarmerToken.centreName}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
-                  <span className="text-slate-500 dark:text-slate-400">Date & Slot</span>
+                  <span className="text-slate-500 dark:text-slate-400">{t.slotBooked}</span>
                   <span className="font-semibold text-slate-800 dark:text-slate-200">
                     {activeFarmerToken.slotDate} ({activeFarmerToken.slotTimeWindow})
                   </span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-500 dark:text-slate-400">Declared Quantity</span>
+                  <span className="text-slate-500 dark:text-slate-400">{t.declaredQuantity}</span>
                   <span className="font-bold text-emerald-800 dark:text-emerald-400">
                     {activeFarmerToken.declaredQuantityKg.toLocaleString('en-IN')} kg ({activeFarmerToken.crop})
                   </span>
@@ -200,7 +200,7 @@ export const FarmerDashboard: React.FC = () => {
           ) : (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 dark:border-slate-800 p-8 text-center bg-white dark:bg-slate-900 h-full">
               <Calendar className="h-9 w-9 text-slate-400 mb-2" />
-              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">No Active Slot Booked</h4>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">{t.farmerNoActiveSlot}</h4>
               <p className="mt-1 text-xs text-slate-500 max-w-xs">
                 Register your produce and choose an available time slot to generate your official token.
               </p>

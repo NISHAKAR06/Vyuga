@@ -1,3 +1,4 @@
+import { useApp } from '../../context/AppContext';
 import React from 'react';
 
 // 1. Actual vs Predicted Queue Area Chart
@@ -9,6 +10,7 @@ interface ForecastPoint {
 }
 
 export const QueueForecastAreaChart: React.FC<{ data: ForecastPoint[] }> = ({ data }) => {
+  const { t } = useApp();
   const width = 600;
   const height = 220;
   const padding = { top: 20, right: 30, bottom: 40, left: 40 };
@@ -42,11 +44,11 @@ export const QueueForecastAreaChart: React.FC<{ data: ForecastPoint[] }> = ({ da
         <div className="mb-3 flex items-center justify-end gap-5 text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <span className="h-3 w-3 rounded-full bg-emerald-500" />
-            <span className="text-slate-700 dark:text-slate-300">Actual Queue (Serving)</span>
+            <span className="text-slate-700 dark:text-slate-300">{t.officerActualQueueServing}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-3 w-3 rounded-full border-2 border-dashed border-purple-500 bg-purple-500/20" />
-            <span className="text-purple-700 dark:text-purple-300 font-bold">AI Predicted Queue</span>
+            <span className="text-purple-700 dark:text-purple-300 font-bold">{t.officerAiPredictedQueue}</span>
           </div>
         </div>
 
@@ -251,20 +253,21 @@ interface WeeklyPoint {
 }
 
 export const WeeklyProcurementBarChart: React.FC<{ data: WeeklyPoint[] }> = ({ data }) => {
+  const { t } = useApp();
   const maxVal = Math.max(...data.map(d => Math.max(d.tonnage, d.target)), 600);
 
   return (
     <div className="w-full">
       <div className="mb-4 flex items-center justify-between text-xs">
-        <span className="font-semibold text-slate-600 dark:text-slate-400">Daily Intake (Tons)</span>
+        <span className="font-semibold text-slate-600 dark:text-slate-400">{t.centreDailyIntakeTons}</span>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded bg-emerald-500" />
-            <span className="text-slate-600 dark:text-slate-400">Procured</span>
+            <span className="text-slate-600 dark:text-slate-400">{t.centreProcured}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded bg-slate-300 dark:bg-slate-700" />
-            <span className="text-slate-600 dark:text-slate-400">Target</span>
+            <span className="text-slate-600 dark:text-slate-400">{t.centreTarget}</span>
           </div>
         </div>
       </div>

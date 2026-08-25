@@ -97,21 +97,21 @@ export const SlotSelection: React.FC = () => {
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 text-xs">
             <div className="rounded-lg bg-white dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Centre</span>
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">{t.tableCentre}</span>
               <span className="text-xs font-bold text-slate-900 dark:text-white block mt-0.5">
                 {newlyGeneratedToken.centreName}
               </span>
             </div>
 
             <div className="rounded-lg bg-white dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Date & Arrival Window</span>
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">{t.selectedSlot}</span>
               <span className="text-xs font-bold text-slate-900 dark:text-white block mt-0.5">
                 {newlyGeneratedToken.slotDate} ({newlyGeneratedToken.slotTimeWindow})
               </span>
             </div>
 
             <div className="rounded-lg bg-white dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Estimated Turnaround Wait</span>
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">{t.aiWaitingTime}</span>
               <span className="text-xs font-bold text-emerald-800 dark:text-emerald-400 block mt-0.5">
                 {newlyGeneratedToken.estimatedWaitMinutes} mins ({newlyGeneratedToken.farmersAhead} Ahead)
               </span>
@@ -253,7 +253,7 @@ export const SlotSelection: React.FC = () => {
 
                   <div className="mt-3">
                     <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 mb-1">
-                      <span>Intake Capacity</span>
+                      <span>{t.farmerSlotCapacityLabel}</span>
                       <span className="font-semibold text-slate-800 dark:text-slate-200">
                         {slot.bookedCount} / {slot.maxCapacity} booked
                       </span>
@@ -321,26 +321,26 @@ export const SlotSelection: React.FC = () => {
           <div className="space-y-3 text-xs">
             <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 p-3.5 border border-slate-200 dark:border-slate-800 space-y-2">
               <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-700">
-                <span className="text-slate-500 dark:text-slate-400">Selected Centre:</span>
+                <span className="text-slate-500 dark:text-slate-400">{t.tableCentre}:</span>
                 <span className="font-bold text-slate-900 dark:text-white">{selectedCentre.name}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-700">
-                <span className="text-slate-500 dark:text-slate-400">Date:</span>
+                <span className="text-slate-500 dark:text-slate-400">{t.tableDate}:</span>
                 <span className="font-bold text-slate-900 dark:text-white">{selectedDate}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-700">
-                <span className="text-slate-500 dark:text-slate-400">Time Window:</span>
+                <span className="text-slate-500 dark:text-slate-400">{t.thTimeWindow}:</span>
                 <span className="font-bold text-emerald-800 dark:text-emerald-400">{selectedSlot.startTime} – {selectedSlot.endTime}</span>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-slate-500 dark:text-slate-400">Slot Status:</span>
+                <span className="text-slate-500 dark:text-slate-400">{t.tableStatus}:</span>
                 <Badge label={selectedSlot.status} variant={selectedSlot.status === 'Limited' ? 'limited' : 'available'} size="sm" />
               </div>
             </div>
 
             <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[11px]">
               <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" />
-              <span>An official verified Gate Pass Token with QR code and live queue tracker will be created for you.</span>
+              <span>{t.farmerSlotGatePassNotice}</span>
             </div>
           </div>
         )}

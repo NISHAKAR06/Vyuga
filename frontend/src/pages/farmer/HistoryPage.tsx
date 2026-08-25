@@ -64,7 +64,7 @@ export const HistoryPage: React.FC = () => {
             onChange={e => setSelectedCrop(e.target.value)}
             className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:border-emerald-800 focus:outline-none"
           >
-            <option value="ALL">All Crops</option>
+            <option value="ALL">{t.filterCrop}</option>
             <option value="Paddy">Paddy</option>
             <option value="Groundnut">Groundnut</option>
             <option value="Cotton">Cotton</option>
@@ -79,7 +79,7 @@ export const HistoryPage: React.FC = () => {
           <table className="w-full text-left text-xs">
             <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               <tr>
-                <th className="px-4 py-3">Receipt #</th>
+                <th className="px-4 py-3">{t.tokenNumber}</th>
                 <th className="px-4 py-3">{t.tableDate}</th>
                 <th className="px-4 py-3">{t.tableCrop}</th>
                 <th className="px-4 py-3">{t.tableQuantity}</th>

@@ -49,7 +49,7 @@ export const AnomalyAlerts: React.FC = () => {
       <div className="rounded-2xl border border-amber-500/30 bg-amber-50/60 dark:bg-amber-950/30 p-4 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-3">
         <Info className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
         <div>
-          <h4 className="font-bold">Important Human-in-the-Loop Protocol</h4>
+          <h4 className="font-bold">{t.officerHitlProtocol}</h4>
           <p className="mt-0.5 text-[11px] opacity-90 leading-relaxed">
             The AI engine flags unusual statistical variations in harvest volume versus land acreage. It never marks a farmer as fraudulent. The Mandi Procurement Officer holds sole authority to verify, clear, or escalate consignments.
           </p>
@@ -103,19 +103,19 @@ export const AnomalyAlerts: React.FC = () => {
 
                 <div className="flex-1 space-y-2 text-xs">
                   <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-400">Current Declared:</span>
+                    <span className="text-slate-400">{t.thCurrentDeclared}:</span>
                     <span className="font-black text-rose-600 dark:text-rose-400">
                       {item.anomaly.currentQuantityKg.toLocaleString('en-IN')} kg
                     </span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-400">Historical Avg:</span>
+                    <span className="text-slate-400">{t.thHistoricalAvg}:</span>
                     <span className="font-bold text-slate-700 dark:text-slate-300">
                       {item.anomaly.historicalAvgKg.toLocaleString('en-IN')} kg
                     </span>
                   </div>
                   <div className="flex justify-between py-1">
-                    <span className="text-slate-400">Land Area:</span>
+                    <span className="text-slate-400">{t.landArea}:</span>
                     <span className="font-bold text-slate-700 dark:text-slate-300">
                       {item.anomaly.landAreaAcres} Acres
                     </span>
@@ -125,7 +125,7 @@ export const AnomalyAlerts: React.FC = () => {
 
               {/* Reason */}
               <div className="rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 text-[11px] text-slate-600 dark:text-slate-300">
-                <span className="font-bold block text-slate-900 dark:text-white mb-0.5">Alert Trigger:</span>
+                <span className="font-bold block text-slate-900 dark:text-white mb-0.5">{t.officerAlertTrigger}</span>
                 {item.anomaly.reason}
               </div>
 
@@ -154,7 +154,7 @@ export const AnomalyAlerts: React.FC = () => {
         {selectedCase && (
           <div className="space-y-4 text-xs">
             <div className="rounded-2xl border border-rose-500/30 bg-rose-50/50 dark:bg-rose-950/30 p-4">
-              <h4 className="font-bold text-rose-900 dark:text-rose-200">Alert Discrepancy Description</h4>
+              <h4 className="font-bold text-rose-900 dark:text-rose-200">{t.officerDiscrepancyDesc}</h4>
               <p className="mt-1 text-slate-700 dark:text-slate-300 leading-relaxed">
                 {selectedCase.anomaly.reason}
               </p>
