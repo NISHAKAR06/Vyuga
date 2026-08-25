@@ -40,6 +40,7 @@ import { GovernmentAIAnalytics } from './pages/admin/GovernmentAIAnalytics';
 import { AnomalyMonitoring } from './pages/admin/AnomalyMonitoring';
 import { ReportsPage } from './pages/admin/ReportsPage';
 import { AdminSettings } from './pages/admin/AdminSettings';
+import { LiveQueueIntelligence } from './pages/admin/LiveQueueIntelligence';
 
 interface PortalLayoutProps {
   portalRole: UserRole;
@@ -135,6 +136,9 @@ const PortalLayout: React.FC<PortalLayoutProps> = ({ portalRole }) => {
           case 'anomaly_monitoring':
           case 'anomalies':
             return <AnomalyMonitoring />;
+          case 'queue_intelligence':
+          case 'live_intelligence':
+            return <LiveQueueIntelligence />;
           case 'reports':
             return <ReportsPage />;
           case 'settings':
@@ -145,6 +149,7 @@ const PortalLayout: React.FC<PortalLayoutProps> = ({ portalRole }) => {
         }
     }
   };
+
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white transition-colors duration-300">

@@ -21,7 +21,8 @@ import {
   UserCheck,
   ChevronRight,
   Sprout,
-  Home
+  Home,
+  Brain
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -82,6 +83,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           { id: 'centres', label: t.navCentresMonitoring, icon: Building2 },
           { id: 'ai_analytics', label: t.navAiAnalytics, icon: Sparkles },
           { id: 'anomaly_monitoring', label: t.navAnomalyMonitoring, icon: ShieldAlert, badge: unresolvedAnomalies > 0 ? `${unresolvedAnomalies}` : undefined, badgeColor: 'bg-rose-500 text-white' },
+          { id: 'queue_intelligence', label: 'Queue Intelligence', icon: Brain, badge: 'AI', badgeColor: 'bg-violet-600 text-white' },
           { id: 'reports', label: t.navAdminReports, icon: FileText },
           { id: 'settings', label: t.navAdminSettings, icon: Settings }
         ];
