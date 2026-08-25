@@ -14,7 +14,8 @@ from app.api.v1.queue import router as queue_router
 from app.api.v1.quality import router as quality_router
 from app.api.v1.payments import router as payments_router
 from app.api.v1.analytics import router as analytics_router
-from app.api.v1.ws import router as ws_router
+from app.api.v1.ws import router as ws_router, manager as ws_manager
+from app.api.v1.queue_intelligence import router as queue_intelligence_router
 
 from contextlib import asynccontextmanager
 from app.core.database import engine, Base
@@ -28,13 +29,26 @@ import app.models.payment
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Initialize DB tables
     try:
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         logger.info("Database tables verified/initialized successfully.")
     except Exception as e:
         logger.warning(f"Database table initialization notice: {e}")
+
+    # Start Queue Intelligence background worker
+    from app.workers.queue_monitor import get_queue_monitor
+    monitor = get_queue_monitor()
+    monitor.set_ws_manager(ws_manager)
+    await monitor.start()
+    logger.info("Queue Intelligence Monitor started.")
+
     yield
+
+    # Shutdown
+    await monitor.stop()
+    logger.info("Queue Intelligence Monitor stopped.")
 
 setup_logging()
 
@@ -77,6 +91,7 @@ app.include_router(quality_router, prefix=settings.API_V1_STR)
 app.include_router(payments_router, prefix=settings.API_V1_STR)
 app.include_router(analytics_router, prefix=settings.API_V1_STR)
 app.include_router(ws_router, prefix=settings.API_V1_STR)
+app.include_router(queue_intelligence_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 async def root():

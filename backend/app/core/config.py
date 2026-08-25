@@ -26,6 +26,17 @@ class Settings(BaseSettings):
     SMS_PROVIDER: str = "APP"
     WHATSAPP_PROVIDER: str = "APP"
 
+    # Twilio WhatsApp (optional — falls back to mock when not set)
+    TWILIO_ACCOUNT_SID: Optional[str] = None
+    TWILIO_AUTH_TOKEN: Optional[str] = None
+    TWILIO_WHATSAPP_FROM: str = "whatsapp:+14155238886"
+
+    # Queue Intelligence Worker
+    QUEUE_MONITOR_INTERVAL_SECONDS: float = 2.0
+    ANOMALY_SCORE_THRESHOLD: float = 0.65
+    LSTM_WINDOW_SIZE: int = 20
+    NORMAL_THROUGHPUT_PER_HOUR: int = 15  # farmers/hour baseline
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
 settings = Settings()
