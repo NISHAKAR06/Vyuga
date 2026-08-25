@@ -11,170 +11,175 @@ import {
   Clock,
   CreditCard,
   AlertTriangle,
-  Sparkles,
   TrendingUp,
   FileText,
-  ArrowRight
+  ArrowRight,
+  Landmark
 } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {
   const { user, setCurrentTab, t } = useApp();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto">
       {/* State Command Banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-purple-500/20 bg-gradient-to-r from-purple-600/15 via-indigo-500/10 to-transparent p-6 dark:bg-purple-950/20">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
+          <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="rounded-full bg-purple-500/20 px-2.5 py-0.5 text-xs font-bold text-purple-700 dark:text-purple-300">
-                State Agricultural Command Portal
+              <span className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700">
+                STATE HEADQUARTERS
               </span>
-              <span className="text-xs text-slate-400">Directorate of Agri Marketing</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">Food & Civil Supplies Department</span>
             </div>
-            <h2 className="mt-1 text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
               {t.adminTitle}
             </h2>
-            <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-              State Administrator: <strong>{user.name}</strong> • Real-time Monitoring Across All Districts
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              State Administrator: <strong>{user.name}</strong> • Live Oversight Across 38 Procurement Districts
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap items-center gap-2.5">
             <button
               onClick={() => setCurrentTab('ai_analytics')}
-              className="flex items-center gap-2 rounded-2xl bg-purple-600 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-purple-500/25 hover:bg-purple-500 transition-all"
+              className="inline-flex items-center gap-2 rounded-lg bg-emerald-800 hover:bg-emerald-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
             >
-              <Sparkles className="h-4 w-4" />
-              <span>AI Crowd Forecasts</span>
+              <TrendingUp className="h-4 w-4" />
+              <span>State Capacity Analytics</span>
             </button>
             <button
               onClick={() => setCurrentTab('reports')}
-              className="flex items-center gap-2 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
             >
-              <FileText className="h-4 w-4 text-purple-500" />
+              <FileText className="h-4 w-4 text-slate-600 dark:text-slate-400" />
               <span>Export State Reports</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* 7 State-Level KPI Cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 xl:grid-cols-7">
-        <KPICard
-          title={t.totalStateFarmers}
-          value="12,450"
-          subtitle="Enrolled"
-          icon={Users}
-          iconColor="text-blue-500"
-        />
+      {/* State-Level KPI Cards: Tier 1 - Primary Intake Volume (4 Cards) */}
+      <div className="space-y-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <KPICard
+            title={t.totalStateFarmers}
+            value="12,450"
+            subtitle="Enrolled Farmers"
+            icon={Users}
+            iconColor="text-blue-700 dark:text-blue-400"
+          />
 
-        <KPICard
-          title={t.activeProcurements}
-          value="3,280"
-          subtitle="Today Active"
-          badge={{ text: '+12%', type: 'success' }}
-          icon={Scale}
-          iconColor="text-emerald-500"
-        />
+          <KPICard
+            title={t.activeProcurements}
+            value="3,280"
+            subtitle="Today Active"
+            badge={{ text: '+12%', type: 'success' }}
+            icon={Scale}
+            iconColor="text-emerald-800 dark:text-emerald-400"
+          />
 
-        <KPICard
-          title={t.stateTonnage}
-          value="2,450 Tons"
-          subtitle="All Crops"
-          icon={TrendingUp}
-          iconColor="text-teal-500"
-        />
+          <KPICard
+            title={t.stateTonnage}
+            value="2,450 MT"
+            subtitle="All Procurement Crops"
+            icon={TrendingUp}
+            iconColor="text-teal-700 dark:text-teal-400"
+          />
 
-        <KPICard
-          title={t.activeCentresCount}
-          value="42"
-          subtitle="Centres Active"
-          icon={Building2}
-          iconColor="text-indigo-500"
-          onClick={() => setCurrentTab('centres')}
-        />
+          <KPICard
+            title={t.activeCentresCount}
+            value="42"
+            subtitle="Active DPC Mandis"
+            icon={Building2}
+            iconColor="text-slate-700 dark:text-slate-300"
+            onClick={() => setCurrentTab('centres')}
+          />
+        </div>
 
-        <KPICard
-          title={t.stateAvgWait}
-          value="32 min"
-          subtitle="State Benchmark"
-          icon={Clock}
-          iconColor="text-amber-500"
-        />
+        {/* Tier 2 - Operational & Audit Metrics (3 Cards) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <KPICard
+            title={t.stateAvgWait}
+            value="32 min"
+            subtitle="Avg Mandi Turnaround"
+            icon={Clock}
+            iconColor="text-amber-700 dark:text-amber-400"
+          />
 
-        <KPICard
-          title={t.pendingDisbursals}
-          value="330"
-          subtitle="DBT Pending"
-          badge={{ text: '₹2.4 Cr', type: 'warning' }}
-          icon={CreditCard}
-          iconColor="text-blue-500"
-        />
+          <KPICard
+            title={t.pendingDisbursals}
+            value="330"
+            subtitle="PFMS DBT Batches"
+            badge={{ text: '₹2.4 Cr', type: 'warning' }}
+            icon={CreditCard}
+            iconColor="text-blue-700 dark:text-blue-400"
+          />
 
-        <KPICard
-          title={t.stateAnomalyCases}
-          value="18"
-          subtitle="Audit Queue"
-          badge={{ text: 'Review', type: 'error' }}
-          icon={AlertTriangle}
-          iconColor="text-rose-500"
-          onClick={() => setCurrentTab('anomaly_monitoring')}
-        />
+          <KPICard
+            title={t.stateAnomalyCases}
+            value="18"
+            subtitle="Under Field Audit"
+            badge={{ text: 'Action Required', type: 'error' }}
+            icon={AlertTriangle}
+            iconColor="text-rose-600 dark:text-rose-400"
+            onClick={() => setCurrentTab('anomaly_monitoring')}
+          />
+        </div>
       </div>
 
       {/* District-wise Performance Table */}
-      <div className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 p-5">
+      <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 p-4">
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              District Procurement & Load Index
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+              District Procurement & Intake Index
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Live mandi intake velocity and average queue waiting times across key agricultural zones
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              Live Mandi intake throughput and average queue turnaround times across agricultural zones
             </p>
           </div>
 
           <button
             onClick={() => setCurrentTab('centres')}
-            className="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-emerald-800 dark:text-emerald-400 hover:underline flex items-center gap-1"
           >
-            <span>All Centres</span>
+            <span>All DPC Centres</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-800/40 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <thead className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               <tr>
-                <th className="px-5 py-3.5">District</th>
-                <th className="px-5 py-3.5">Active Mandis</th>
-                <th className="px-5 py-3.5">Farmers Today</th>
-                <th className="px-5 py-3.5">Procured Tonnage</th>
-                <th className="px-5 py-3.5">Avg Wait Time</th>
-                <th className="px-5 py-3.5">Load Status</th>
+                <th className="px-4 py-3">District</th>
+                <th className="px-4 py-3">Active Mandis</th>
+                <th className="px-4 py-3">Farmers Today</th>
+                <th className="px-4 py-3">Procured Tonnage</th>
+                <th className="px-4 py-3">Avg Wait Time</th>
+                <th className="px-4 py-3">Load Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-medium text-slate-700 dark:text-slate-300">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-medium text-slate-700 dark:text-slate-300">
               {districtPerformanceData.map((d, idx) => (
-                <tr key={idx} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/30 transition-colors">
-                  <td className="px-5 py-4 font-bold text-slate-900 dark:text-white">
+                <tr key={idx} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                  <td className="px-4 py-3 font-bold text-slate-900 dark:text-white">
                     {d.district}
                   </td>
-                  <td className="px-5 py-4 text-slate-500">
-                    {d.centres} APMC Mandis
+                  <td className="px-4 py-3 text-slate-500 dark:text-slate-400">
+                    {d.centres} Direct Centres
                   </td>
-                  <td className="px-5 py-4 font-bold text-slate-800 dark:text-slate-200">
+                  <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-200">
                     {d.farmers.toLocaleString('en-IN')}
                   </td>
-                  <td className="px-5 py-4 font-black text-emerald-600 dark:text-emerald-400">
-                    {d.tonnage} Tons
+                  <td className="px-4 py-3 font-bold text-emerald-800 dark:text-emerald-400">
+                    {d.tonnage} MT
                   </td>
-                  <td className="px-5 py-4">
+                  <td className="px-4 py-3">
                     <span className="font-bold text-slate-900 dark:text-white">{d.avgWaitMin} min</span>
                   </td>
-                  <td className="px-5 py-4">
+                  <td className="px-4 py-3">
                     <Badge
                       label={d.status}
                       variant={d.status === 'High Load' ? 'high_load' : d.status === 'Moderate' ? 'moderate' : 'normal'}

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.core.config import settings
 from app.core.logging import setup_logging, logger
-from app.core.exceptions import SmartProcureError
+from app.core.exceptions import AgriProcureError
 from app.schemas.common import ApiResponseEnvelope, ErrorDetail
 
 # Import Routers
@@ -56,9 +56,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Global Custom Domain Exception Handler (Requirement 46 & 47)
-@app.exception_handler(SmartProcureError)
-async def smartprocure_exception_handler(request: Request, exc: SmartProcureError):
+# Global Custom Domain Exception Handler
+@app.exception_handler(AgriProcureError)
+async def agriprocure_exception_handler(request: Request, exc: AgriProcureError):
     logger.warning(f"Domain Error [{exc.code}]: {exc.message} on {request.url.path}")
     return JSONResponse(
         status_code=exc.status_code,
@@ -80,4 +80,4 @@ app.include_router(ws_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 async def root():
-    return {"message": "SmartProcure FastAPI Backend API v1 is active", "docs": "/api/v1/docs"}
+    return {"message": "AgriProcure FastAPI Backend API v1 is active", "docs": "/api/v1/docs"}

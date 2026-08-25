@@ -3,7 +3,7 @@ from typing import Any, Optional, Dict
 import jwt
 from passlib.context import CryptContext
 from app.core.config import settings
-from app.core.exceptions import SmartProcureError
+from app.core.exceptions import AgriProcureError
 
 pwd_context = CryptContext(schemes=["bcrypt", "argon2"], deprecated="auto")
 
@@ -52,6 +52,6 @@ def decode_jwt_token(token: str) -> Dict[str, Any]:
         payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM])
         return payload
     except jwt.ExpiredSignatureError:
-        raise SmartProcureError(code="TOKEN_EXPIRED", message="Token has expired.", status_code=401)
+        raise AgriProcureError(code="TOKEN_EXPIRED", message="Token has expired.", status_code=401)
     except jwt.InvalidTokenError:
-        raise SmartProcureError(code="INVALID_TOKEN", message="Invalid authentication token.", status_code=401)
+        raise AgriProcureError(code="INVALID_TOKEN", message="Invalid authentication token.", status_code=401)

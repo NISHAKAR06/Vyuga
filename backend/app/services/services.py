@@ -12,7 +12,7 @@ from app.models.payment import PaymentModel, GrievanceModel, AuditLogModel
 from app.domain.state_machine import BookingStateMachine, PaymentStateMachine, ProcurementStateMachine
 from app.domain.enums import BookingStatusEnum, PaymentStatusEnum, QualityGradeEnum, UserRoleEnum
 from app.core.exceptions import (
-    SmartProcureError, BookingNotAvailableError, InvalidStateTransitionError,
+    AgriProcureError, BookingNotAvailableError, InvalidStateTransitionError,
     InvalidQuantityError, ResourceNotFoundError
 )
 from app.infrastructure.notifications import NotificationProviderFactory

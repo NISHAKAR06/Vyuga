@@ -1,5 +1,5 @@
 /**
- * SmartProcure API Client Service
+ * AgriProcure API Client Service
  * Connects frontend to the FastAPI Backend (/api/v1).
  */
 
@@ -19,21 +19,21 @@ export interface ApiResponse<T = any> {
 export type RoleMapping = 'farmer' | 'officer' | 'admin' | 'FARMER' | 'PROCURER' | 'ADMIN';
 
 class ApiService {
-  private token: string | null = localStorage.getItem('smartprocure_token');
+  private token: string | null = localStorage.getItem('agriprocure_token');
   private baseUrl: string = API_BASE_URL;
 
   public setToken(token: string | null) {
     this.token = token;
     if (token) {
-      localStorage.setItem('smartprocure_token', token);
+      localStorage.setItem('agriprocure_token', token);
     } else {
-      localStorage.removeItem('smartprocure_token');
+      localStorage.removeItem('agriprocure_token');
     }
   }
 
   public getToken(): string | null {
     if (!this.token) {
-      this.token = localStorage.getItem('smartprocure_token');
+      this.token = localStorage.getItem('agriprocure_token');
     }
     return this.token;
   }
@@ -108,6 +108,26 @@ class ApiService {
     const res = await this.request<{ access_token: string; refresh_token: string; user: any }>('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ phone: phone || '+91 98421 76540', role: backendRole }),
+    });
+
+    if (res.success && res.data?.access_token) {
+      this.setToken(res.data.access_token);
+    }
+    return res;
+  }
+
+  public async register(payload: { phone: string; full_name: string; role: RoleMapping; password?: string; district?: string }) {
+    const backendRole = this.mapRoleToBackend(payload.role);
+    const res = await this.request<{ access_token: string; refresh_token: string; user: any }>('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        phone: payload.phone,
+        full_name: payload.full_name,
+        role: backendRole,
+        password: payload.password || 'secret123',
+        district: payload.district || 'Thanjavur',
+        state: 'Tamil Nadu'
+      }),
     });
 
     if (res.success && res.data?.access_token) {

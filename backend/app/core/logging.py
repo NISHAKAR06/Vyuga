@@ -11,4 +11,4 @@ def setup_logging():
     )
     logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
 
-logger = logging.getLogger("smartprocure")
+logger = logging.getLogger("agriprocure")

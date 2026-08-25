@@ -1,5 +1,5 @@
 """
-SmartProcure Realistic Seed Data Generator (Requirement 50).
+AgriProcure Realistic Seed Data Generator (Requirement 50).
 Populates PostgreSQL with realistic Indian agricultural procurement data:
 - 3 Roles (FARMER, PROCURER, ADMIN)
 - 5+ Farmers, 3+ Procurers, 1 Admin
@@ -21,7 +21,7 @@ from datetime import datetime
 
 async def seed_data():
     async with AsyncSessionLocal() as session:
-        print("Seeding SmartProcure database...")
+        print("Seeding AgriProcure database...")
 
         # 1. Create Crops
         crops = [

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import {
   LayoutDashboard,
@@ -19,7 +20,8 @@ import {
   Settings,
   UserCheck,
   ChevronRight,
-  Sprout
+  Sprout,
+  Home
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -36,6 +38,7 @@ interface NavItem {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const { role, currentTab, setCurrentTab, t, anomalyList, liveQueue } = useApp();
 
   const unresolvedAnomalies = anomalyList.filter(
@@ -89,6 +92,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   const handleSelectTab = (id: string) => {
     setCurrentTab(id);
+    navigate(`/${role}/${id === 'dashboard' ? '' : id}`);
     if (window.innerWidth < 1024) {
       onClose();
     }
@@ -111,15 +115,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         }`}
       >
         {/* Brand Banner inside Sidebar */}
-        <div className="mb-6 flex items-center gap-3 px-2 pt-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white shadow-md shadow-emerald-500/25">
+        <div
+          onClick={() => navigate('/')}
+          className="mb-6 flex items-center gap-3 px-2 pt-2 cursor-pointer hover:opacity-90 transition-opacity"
+          title="Back to Landing Page"
+        >
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-800 text-white shadow">
             <Sprout className="h-6 w-6 stroke-[2.2]" />
           </div>
           <div>
-            <h1 className="text-base font-black tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
               AgriProcure
             </h1>
-            <p className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+            <p className="text-[10px] font-semibold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider">
               {role === 'farmer' ? 'Farmer Portal' : role === 'officer' ? 'Mandi Officer Desk' : 'State Command'}
             </p>
           </div>

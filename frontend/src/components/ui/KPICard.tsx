@@ -37,35 +37,36 @@ export const KPICard: React.FC<KPICardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 ${
+      className={`relative overflow-hidden rounded-xl border p-4 sm:p-4.5 transition-all duration-200 ${
         highlight
-          ? 'bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border-emerald-500/40 shadow-lg shadow-emerald-500/10 dark:from-emerald-950/40 dark:via-emerald-900/10'
-          : 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md'
-      } ${onClick ? 'cursor-pointer hover:border-emerald-500/50 hover:scale-[1.01]' : ''}`}
+          ? 'bg-white dark:bg-slate-900 border-emerald-700 dark:border-emerald-600 shadow-sm ring-1 ring-emerald-700/20'
+          : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700'
+      } ${onClick ? 'cursor-pointer hover:shadow-md' : ''}`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            <span>{title}</span>
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="truncate">{title}</span>
             {tooltipText && (
               <Tooltip content={tooltipText}>
-                <Info className="w-3.5 h-3.5 text-slate-400 hover:text-emerald-500 cursor-help" />
+                <Info className="w-3.5 h-3.5 text-slate-400 hover:text-emerald-500 cursor-help shrink-0" />
               </Tooltip>
             )}
           </div>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+
+          <div className="mt-2 flex flex-wrap items-baseline gap-2">
+            <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
               {value}
             </span>
             {badge && (
               <span
-                className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${
+                className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold shrink-0 ${
                   badge.type === 'success'
-                    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
+                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800'
                     : badge.type === 'warning'
-                    ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300'
+                    ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-300 dark:border-amber-800'
                     : badge.type === 'error'
-                    ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
+                    ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/80 dark:text-rose-300 border border-rose-300 dark:border-rose-800'
                     : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
                 }`}
               >
@@ -73,25 +74,27 @@ export const KPICard: React.FC<KPICardProps> = ({
               </span>
             )}
           </div>
+
           {subtitle && (
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400 truncate">
               {subtitle}
             </p>
           )}
+
           {trend && (
-            <div className="mt-2.5 flex items-center gap-1 text-xs">
-              <span className={`font-semibold ${trend.isUp ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
+            <div className="mt-2 flex items-center gap-1 text-[11px]">
+              <span className={`font-bold ${trend.isUp ? 'text-emerald-800 dark:text-emerald-400' : 'text-slate-500'}`}>
                 {trend.value}
               </span>
-              <span className="text-slate-400 dark:text-slate-500">
+              <span className="text-slate-500 dark:text-slate-400 truncate">
                 {trend.text}
               </span>
             </div>
           )}
         </div>
 
-        <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 ${iconColor}`}>
-          <Icon className="h-6 w-6" />
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800/90 ${iconColor}`}>
+          <Icon className="h-5 w-5" />
         </div>
       </div>
     </div>

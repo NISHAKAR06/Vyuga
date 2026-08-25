@@ -165,7 +165,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return (saved === 'officer' || saved === 'admin' || saved === 'farmer') ? saved : 'farmer';
   });
   const [user, setUser] = useState<UserProfile>(() => mockUsers[role] || mockUsers.farmer);
-  const [currentTab, setCurrentTab] = useState<string>('dashboard');
+  const [currentTab, setCurrentTabState] = useState<string>('dashboard');
+
+  const setCurrentTab = useCallback((tab: string) => {
+    setCurrentTabState(tab);
+    if (typeof window !== 'undefined') {
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      const activeRole = (pathParts.length > 0 && ['farmer', 'officer', 'admin'].includes(pathParts[0]))
+        ? pathParts[0]
+        : (localStorage.getItem('agri_role') || 'farmer');
+      const targetPath = tab === 'dashboard' ? `/${activeRole}` : `/${activeRole}/${tab}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState(null, '', targetPath);
+      }
+    }
+  }, []);
+
   const [isBackendConnected, setIsBackendConnected] = useState<boolean>(false);
 
   // 4. Data states
@@ -232,8 +247,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           anomaly: {
             detected: false,
             riskScore: 12,
-            riskLevel: 'LOW',
-            status: 'Normal',
+            riskLevel: 'LOW' as const,
+            status: 'Normal' as const,
             currentQuantityKg: item.declaredQuantityKg || 3000,
             historicalAvgKg: 2800,
             landAreaAcres: 3.5,

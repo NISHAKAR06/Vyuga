@@ -12,7 +12,6 @@ import {
   ArrowRight,
   QrCode,
   Users,
-  Sparkles,
   MapPin,
   Phone
 } from 'lucide-react';
@@ -67,28 +66,28 @@ export const SlotSelection: React.FC = () => {
   return (
     <div className="mx-auto max-w-5xl space-y-6">
       {/* Header */}
-      <div>
-        <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-3">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
           {t.navMySlots}
         </h2>
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-          Official intake slots created by Mandi Officers. Select a time window to avoid queue congestion.
+        <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
+          Official arrival slots at Direct Purchase Centres. Select a 1-hour arrival window to avoid mandi queues.
         </p>
       </div>
 
       {/* If token was just generated, show token card banner */}
       {newlyGeneratedToken && (
-        <div className="overflow-hidden rounded-3xl border-2 border-emerald-500 bg-emerald-500/10 p-6 shadow-xl dark:bg-emerald-950/60 animate-slide-up">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-500/30 pb-4">
+        <div className="rounded-xl border border-emerald-300 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/80 p-5 shadow-sm space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-200 dark:border-emerald-800 pb-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-white">
-                <CheckCircle2 className="h-6 w-6" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-800 text-white">
+                <CheckCircle2 className="h-5 w-5" />
               </div>
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-300">
                   SLOT BOOKING CONFIRMED
                 </span>
-                <h3 className="text-xl font-black text-slate-900 dark:text-white">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Token #{newlyGeneratedToken.tokenNumber} Generated
                 </h3>
               </div>
@@ -96,33 +95,33 @@ export const SlotSelection: React.FC = () => {
             <Badge label="Confirmed" variant="completed" size="md" dot />
           </div>
 
-          <div className="my-6 grid grid-cols-1 gap-4 sm:grid-cols-3 text-xs">
-            <div className="rounded-2xl bg-white dark:bg-slate-900 p-4 border border-emerald-500/20">
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">Centre</span>
-              <span className="text-sm font-bold text-slate-900 dark:text-white block mt-1">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 text-xs">
+            <div className="rounded-lg bg-white dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800">
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Centre</span>
+              <span className="text-xs font-bold text-slate-900 dark:text-white block mt-0.5">
                 {newlyGeneratedToken.centreName}
               </span>
             </div>
 
-            <div className="rounded-2xl bg-white dark:bg-slate-900 p-4 border border-emerald-500/20">
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">Date & Time Window</span>
-              <span className="text-sm font-bold text-slate-900 dark:text-white block mt-1">
+            <div className="rounded-lg bg-white dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800">
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Date & Arrival Window</span>
+              <span className="text-xs font-bold text-slate-900 dark:text-white block mt-0.5">
                 {newlyGeneratedToken.slotDate} ({newlyGeneratedToken.slotTimeWindow})
               </span>
             </div>
 
-            <div className="rounded-2xl bg-white dark:bg-slate-900 p-4 border border-emerald-500/20">
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">AI Estimated Wait</span>
-              <span className="text-sm font-black text-emerald-600 dark:text-emerald-400 block mt-1">
-                {newlyGeneratedToken.estimatedWaitMinutes} minutes ({newlyGeneratedToken.farmersAhead} Ahead)
+            <div className="rounded-lg bg-white dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800">
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Estimated Turnaround Wait</span>
+              <span className="text-xs font-bold text-emerald-800 dark:text-emerald-400 block mt-0.5">
+                {newlyGeneratedToken.estimatedWaitMinutes} mins ({newlyGeneratedToken.farmersAhead} Ahead)
               </span>
             </div>
           </div>
 
-          <div className="flex justify-end gap-3">
+          <div className="flex justify-end pt-1">
             <button
               onClick={() => setCurrentTab('live_queue')}
-              className="flex items-center gap-2 rounded-2xl bg-emerald-600 px-6 py-3 text-xs font-bold text-white hover:bg-emerald-500 shadow-md transition-all active:scale-95"
+              className="inline-flex items-center gap-2 rounded-lg bg-emerald-800 hover:bg-emerald-900 px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors"
             >
               <span>{t.viewLiveQueue}</span>
               <ArrowRight className="h-4 w-4" />
@@ -133,7 +132,7 @@ export const SlotSelection: React.FC = () => {
 
       {/* Centre Selection Cards */}
       <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
           {t.selectCentre}
         </label>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -144,15 +143,15 @@ export const SlotSelection: React.FC = () => {
                 key={c.id}
                 type="button"
                 onClick={() => setSelectedCentreId(c.id)}
-                className={`flex flex-col items-start rounded-2xl border p-4 text-left transition-all ${
+                className={`flex flex-col items-start rounded-xl border p-4 text-left transition-all ${
                   isSelected
-                    ? 'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 ring-2 ring-emerald-500/30 shadow-sm'
+                    ? 'border-emerald-800 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/80 dark:border-emerald-700 dark:text-emerald-200 ring-1 ring-emerald-800'
                     : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300'
                 }`}
               >
                 <div className="flex w-full items-start justify-between">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
-                    <Building className="h-5 w-5" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold">
+                    <Building className="h-4 w-4" />
                   </div>
                   <Badge
                     label={c.status}
@@ -160,15 +159,15 @@ export const SlotSelection: React.FC = () => {
                     size="sm"
                   />
                 </div>
-                <h4 className="mt-3 text-sm font-bold text-slate-900 dark:text-white">
+                <h4 className="mt-2.5 text-xs font-bold text-slate-900 dark:text-white">
                   {c.name}
                 </h4>
                 <p className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
                   {c.address}
                 </p>
-                <div className="mt-3 flex items-center justify-between w-full border-t border-slate-100 dark:border-slate-800/80 pt-2 text-[11px] text-slate-500">
-                  <span>Wait: <strong>{c.currentAvgWaitMinutes}m</strong></span>
-                  <span>Util: <strong>{c.utilizationRate}%</strong></span>
+                <div className="mt-2.5 flex items-center justify-between w-full border-t border-slate-100 dark:border-slate-800 pt-2 text-[11px] text-slate-500">
+                  <span>Turnaround: <strong>{c.currentAvgWaitMinutes}m</strong></span>
+                  <span>Intake Pace: <strong>{c.utilizationRate}%</strong></span>
                 </div>
               </button>
             );
@@ -177,15 +176,15 @@ export const SlotSelection: React.FC = () => {
       </div>
 
       {/* Date Picker */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm">
         <div className="flex items-center gap-2.5">
-          <Calendar className="h-5 w-5 text-emerald-500" />
+          <Calendar className="h-5 w-5 text-emerald-800 dark:text-emerald-400" />
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               {t.selectDate}
             </h4>
-            <p className="text-[11px] text-slate-400">
-              Slots open 7 days in advance
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              Direct Purchase Centre booking open 7 days in advance
             </p>
           </div>
         </div>
@@ -193,15 +192,15 @@ export const SlotSelection: React.FC = () => {
           type="date"
           value={selectedDate}
           onChange={e => setSelectedDate(e.target.value)}
-          className="rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3.5 py-2 text-xs font-bold text-slate-800 dark:text-white"
+          className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs font-bold text-slate-900 dark:text-white focus:border-emerald-800 focus:outline-none"
         />
       </div>
 
       {/* Available Slots Grid */}
-      <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-3">
           <div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
               {t.availableSlotsTitle}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -211,21 +210,21 @@ export const SlotSelection: React.FC = () => {
 
           <div className="flex items-center gap-3 text-xs font-semibold">
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              <span className="h-2 w-2 rounded-full bg-emerald-700" />
               <span className="text-slate-600 dark:text-slate-400">{t.available}</span>
             </span>
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-amber-500" />
+              <span className="h-2 w-2 rounded-full bg-amber-600" />
               <span className="text-slate-600 dark:text-slate-400">{t.limited}</span>
             </span>
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-rose-500" />
+              <span className="h-2 w-2 rounded-full bg-rose-600" />
               <span className="text-slate-600 dark:text-slate-400">{t.full}</span>
             </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {centreSlots.map((slot) => {
             const isFull = slot.status === 'Full';
             const isLimited = slot.status === 'Limited';
@@ -233,16 +232,16 @@ export const SlotSelection: React.FC = () => {
             return (
               <div
                 key={slot.id}
-                className={`relative flex flex-col justify-between rounded-2xl border p-4 transition-all ${
+                className={`flex flex-col justify-between rounded-lg border p-4 transition-all ${
                   isFull
                     ? 'border-slate-200 bg-slate-50 opacity-60 dark:border-slate-800 dark:bg-slate-900'
-                    : 'border-slate-200 hover:border-emerald-500/60 bg-white dark:border-slate-800 dark:bg-slate-900 shadow-sm'
+                    : 'border-slate-200 hover:border-emerald-800 bg-white dark:border-slate-800 dark:bg-slate-900 shadow-sm'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white text-sm">
-                      <Clock className="h-4 w-4 text-emerald-500" />
+                    <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white text-xs">
+                      <Clock className="h-3.5 w-3.5 text-emerald-800 dark:text-emerald-400" />
                       <span>{slot.startTime} – {slot.endTime}</span>
                     </div>
                     <Badge
@@ -253,21 +252,21 @@ export const SlotSelection: React.FC = () => {
                   </div>
 
                   <div className="mt-3">
-                    <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-                      <span>Capacity</span>
-                      <span className="font-bold">
+                    <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 mb-1">
+                      <span>Intake Capacity</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">
                         {slot.bookedCount} / {slot.maxCapacity} booked
                       </span>
                     </div>
                     {/* Capacity Progress Bar */}
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
                       <div
                         className={`h-full rounded-full transition-all ${
                           isFull
-                            ? 'bg-rose-500'
+                            ? 'bg-rose-600'
                             : isLimited
-                            ? 'bg-amber-500'
-                            : 'bg-emerald-500'
+                            ? 'bg-amber-600'
+                            : 'bg-emerald-700'
                         }`}
                         style={{ width: `${(slot.bookedCount / slot.maxCapacity) * 100}%` }}
                       />
@@ -275,14 +274,14 @@ export const SlotSelection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800">
                   <button
                     disabled={isFull}
                     onClick={() => handleOpenConfirm(slot)}
-                    className={`w-full rounded-xl py-2.5 text-xs font-bold transition-all ${
+                    className={`w-full rounded-lg py-2 text-xs font-bold transition-colors ${
                       isFull
                         ? 'cursor-not-allowed bg-slate-200 text-slate-400 dark:bg-slate-800'
-                        : 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-md shadow-emerald-500/20 active:scale-95'
+                        : 'bg-emerald-800 text-white hover:bg-emerald-900 shadow-sm'
                     }`}
                   >
                     {isFull ? t.slotFullBtn : t.selectSlotBtn}
@@ -305,13 +304,13 @@ export const SlotSelection: React.FC = () => {
           <div className="flex gap-2">
             <button
               onClick={() => setShowConfirmModal(false)}
-              className="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-300"
+              className="rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 transition-colors"
             >
               {t.cancel}
             </button>
             <button
               onClick={handleConfirmBooking}
-              className="rounded-xl bg-emerald-600 px-5 py-2 text-xs font-bold text-white hover:bg-emerald-500 shadow-md shadow-emerald-500/20"
+              className="rounded-lg bg-emerald-800 hover:bg-emerald-900 px-5 py-2 text-xs font-bold text-white shadow-sm transition-colors"
             >
               {t.generateTokenBtn}
             </button>
@@ -319,19 +318,19 @@ export const SlotSelection: React.FC = () => {
         }
       >
         {selectedSlot && (
-          <div className="space-y-4 text-xs">
-            <div className="rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 p-4 border border-emerald-500/30">
-              <div className="flex justify-between py-1 border-b border-emerald-500/20">
+          <div className="space-y-3 text-xs">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-800/60 p-3.5 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400">Selected Centre:</span>
                 <span className="font-bold text-slate-900 dark:text-white">{selectedCentre.name}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-emerald-500/20">
+              <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400">Date:</span>
                 <span className="font-bold text-slate-900 dark:text-white">{selectedDate}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-emerald-500/20">
+              <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-700">
                 <span className="text-slate-500 dark:text-slate-400">Time Window:</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400">{selectedSlot.startTime} – {selectedSlot.endTime}</span>
+                <span className="font-bold text-emerald-800 dark:text-emerald-400">{selectedSlot.startTime} – {selectedSlot.endTime}</span>
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-slate-500 dark:text-slate-400">Slot Status:</span>
@@ -339,9 +338,9 @@ export const SlotSelection: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px]">
-              <Sparkles className="h-4 w-4 text-emerald-500 shrink-0" />
-              <span>An official verified Token with QR code and live queue tracker will be created for you.</span>
+            <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[11px]">
+              <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" />
+              <span>An official verified Gate Pass Token with QR code and live queue tracker will be created for you.</span>
             </div>
           </div>
         )}

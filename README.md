@@ -1,4 +1,4 @@
-# SMARTPROCURE — FASTAPI BACKEND & AGRI-PROCUREMENT PLATFORM
+# AGRIPROCURE — FASTAPI BACKEND & AGRI-PROCUREMENT PLATFORM
 
 Production-quality FastAPI backend built using **Object-Oriented Programming (OOP), SOLID principles, and Clean Architecture** supporting the React + TypeScript frontend.
 

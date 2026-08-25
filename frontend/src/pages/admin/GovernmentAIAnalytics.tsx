@@ -4,14 +4,15 @@ import { QueueForecastAreaChart, WeeklyProcurementBarChart } from '../../compone
 import { queueForecastData, weeklyProcurementTrend } from '../../data/mockData';
 import { Badge } from '../../components/common/Badge';
 import {
-  Sparkles,
   TrendingUp,
   Clock,
   Scale,
   Users,
   AlertTriangle,
   Building,
-  Calendar
+  Calendar,
+  Landmark,
+  FileCheck
 } from 'lucide-react';
 
 export const GovernmentAIAnalytics: React.FC = () => {
@@ -20,90 +21,90 @@ export const GovernmentAIAnalytics: React.FC = () => {
   return (
     <div className="mx-auto max-w-5xl space-y-6">
       {/* Header */}
-      <div>
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
         <div className="flex items-center gap-2.5">
-          <Sparkles className="h-6 w-6 text-purple-500" />
-          <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
-            {t.crowdPredictionTitle}
+          <Landmark className="h-6 w-6 text-emerald-800 dark:text-emerald-400" />
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            State Mandi Capacity & Arrival Queue Analytics
           </h2>
         </div>
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-          State-wide machine learning forecast engine: crowd congestion, peak arrival windows and wait time simulations
+        <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
+          Directorate oversight: centre capacity telemetry, arrival velocity, peak intake windows, and processing efficiency
         </p>
       </div>
 
       {/* Hero Forecast Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {/* Crowd Level */}
-        <div className="rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-slate-900/5 to-slate-900/10 dark:from-purple-950/40 dark:via-slate-900/40 p-6 shadow-sm">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">
-              Crowd Forecast
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+              Centre Capacity Status
             </span>
-            <Badge label="HIGH CROWD" variant="warning" size="sm" dot />
+            <Badge label="HIGH INTAKE" variant="warning" size="sm" dot />
           </div>
-          <div className="mt-3 text-3xl font-black text-slate-900 dark:text-white">
+          <div className="mt-2 text-xl font-bold text-slate-900 dark:text-white">
             Centre A – Thanjavur
           </div>
-          <p className="mt-1 text-xs font-bold text-amber-600 dark:text-amber-400">
+          <p className="mt-1 text-xs font-bold text-amber-700 dark:text-amber-400">
             {t.crowdLevelTomorrow}
           </p>
           <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
-            Advisory: Deploy 2 auxiliary weighbridge operators to prevent entry gate backlog.
+            Operational Advisory: Deploy 2 auxiliary weighbridge operators to streamline intake.
           </p>
         </div>
 
         {/* Waiting Prediction */}
-        <div className="rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-slate-900/5 to-slate-900/10 dark:from-amber-950/40 dark:via-slate-900/40 p-6 shadow-sm">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-              Peak Waiting Prediction
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+              Peak Turnaround Window
             </span>
-            <Clock className="h-4 w-4 text-amber-500" />
+            <Clock className="h-4 w-4 text-slate-600 dark:text-slate-400" />
           </div>
-          <div className="mt-3 text-3xl font-black text-amber-600 dark:text-amber-400">
-            48 min
+          <div className="mt-2 text-2xl font-black text-slate-900 dark:text-white">
+            35 mins
           </div>
           <p className="mt-1 text-xs font-bold text-slate-700 dark:text-slate-300">
-            Centre A Peak Window
+            Centre A Peak Operating Window
           </p>
           <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
-            Predicted wait without dynamic slot regulation would exceed 120+ minutes.
+            Turnaround time stabilized via scheduled 1-hour farmer slot allocation.
           </p>
         </div>
 
         {/* Expected Volume */}
-        <div className="rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-slate-900/5 to-slate-900/10 dark:from-emerald-950/40 dark:via-slate-900/40 p-6 shadow-sm">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
               {t.expectedProcurementTons}
             </span>
-            <Scale className="h-4 w-4 text-emerald-500" />
+            <Scale className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
           </div>
-          <div className="mt-3 text-3xl font-black text-emerald-600 dark:text-emerald-400">
+          <div className="mt-2 text-2xl font-black text-emerald-800 dark:text-emerald-300">
             95 Tons
           </div>
           <p className="mt-1 text-xs font-bold text-slate-700 dark:text-slate-300">
             Expected Daily Intake
           </p>
           <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
-            Based on registered farmer declarations and weather-driven harvest speed.
+            Calculated from registered farmer crop declarations and booked arrival slots.
           </p>
         </div>
       </div>
 
-      {/* AI Queue Simulation Curve Chart */}
-      <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-sm">
-        <div className="mb-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+      {/* Queue Simulation Curve Chart */}
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+        <div className="mb-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
           <div>
-            <h3 className="text-base font-black text-slate-900 dark:text-white">
-              State-wide Multi-Hour Queue Prediction Curve
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              State-wide Multi-Hour Arrival & Weighment Throughput Curve
             </h3>
-            <p className="text-xs text-slate-400">
-              Live Serving vs Next 6-Hour Predicted Arrivals (Dashed curve denotes machine learning forecast)
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Live Servicing vs Scheduled Hourly Inflow (Dashed curve denotes scheduled slot capacity)
             </p>
           </div>
-          <Badge label="AI MODEL CONFIDENCE: 94.2%" variant="available" size="sm" />
+          <Badge label="SYSTEM RELIABILITY: 99.4%" variant="available" size="sm" />
         </div>
 
         <QueueForecastAreaChart data={queueForecastData} />

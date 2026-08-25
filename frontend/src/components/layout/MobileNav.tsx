@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import {
   LayoutDashboard,
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react';
 
 export const MobileNav: React.FC = () => {
+  const navigate = useNavigate();
   const { role, currentTab, setCurrentTab, t } = useApp();
 
   const getMobileTabs = () => {
@@ -47,6 +49,11 @@ export const MobileNav: React.FC = () => {
 
   const tabs = getMobileTabs();
 
+  const handleTabClick = (tabId: string) => {
+    setCurrentTab(tabId);
+    navigate(`/${role}/${tabId === 'dashboard' ? '' : tabId}`);
+  };
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 flex h-16 items-center justify-around border-t border-slate-200/90 bg-white/95 px-2 backdrop-blur-lg dark:border-slate-800/90 dark:bg-slate-900/95 lg:hidden">
       {tabs.map((tab) => {
@@ -56,7 +63,7 @@ export const MobileNav: React.FC = () => {
         return (
           <button
             key={tab.id}
-            onClick={() => setCurrentTab(tab.id)}
+            onClick={() => handleTabClick(tab.id)}
             className={`flex flex-1 flex-col items-center justify-center gap-1 py-1 text-center transition-colors ${
               isActive
                 ? 'text-emerald-600 dark:text-emerald-400 font-bold'

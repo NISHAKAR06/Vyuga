@@ -117,9 +117,9 @@ export const OfficerDashboard: React.FC = () => {
         <KPICard
           title={t.averageWaitTime}
           value="27 min"
-          subtitle="AI Benchmark: 25m"
-          icon={Sparkles}
-          iconColor="text-purple-500"
+          subtitle="Target: ≤ 25 min"
+          icon={Clock}
+          iconColor="text-emerald-800 dark:text-emerald-400"
           highlight={true}
         />
 
@@ -129,29 +129,29 @@ export const OfficerDashboard: React.FC = () => {
           subtitle="Weighbridges 1-3"
           badge={{ text: 'Optimal', type: 'info' }}
           icon={TrendingUp}
-          iconColor="text-blue-500"
+          iconColor="text-blue-600"
         />
       </div>
 
-      {/* Officer AI Waiting & Queue Forecast (Chart) */}
+      {/* Officer Hourly Queue & Throughput Analysis */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        {/* Left AI Queue Forecast Chart (8 cols) */}
-        <div className="lg:col-span-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+        {/* Left Queue Throughput Chart (8 cols) */}
+        <div className="lg:col-span-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div>
               <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-purple-500" />
-                <h3 className="text-base font-black text-slate-900 dark:text-white">
-                  Officer AI Queue & Crowd Prediction Model
+                <Clock className="h-5 w-5 text-slate-700 dark:text-slate-300" />
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Mandi Hourly Intake & Queue Throughput Analysis
                 </h3>
               </div>
               <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
-                Hourly throughput comparison: Actual queue line vs AI predicted crowd
+                Hourly intake comparison: Current queue line vs scheduled slot capacity
               </p>
             </div>
 
             <div className="flex items-center gap-2">
-              <Badge label="Predicted: HIGH CROWD" variant="warning" size="sm" />
+              <Badge label="PEAK INTAKE WINDOW" variant="warning" size="sm" />
             </div>
           </div>
 
