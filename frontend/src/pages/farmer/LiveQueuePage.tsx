@@ -11,7 +11,8 @@ import {
   CheckCircle2,
   Clock,
   MapPin,
-  Info
+  Info,
+  Activity
 } from 'lucide-react';
 
 export const LiveQueuePage: React.FC = () => {
@@ -20,7 +21,9 @@ export const LiveQueuePage: React.FC = () => {
     liveQueue,
     counters,
     advanceQueue,
-    t
+    t,
+    autoDemoActive,
+    setAutoDemoActive
   } = useApp();
 
   const servingToken = liveQueue.find(q => q.status === 'Now Serving');
@@ -43,14 +46,30 @@ export const LiveQueuePage: React.FC = () => {
           </p>
         </div>
 
-        {/* Demo Advance Simulation Button */}
-        <button
-          onClick={advanceQueue}
-          className="inline-flex items-center gap-2 rounded-lg bg-emerald-800 hover:bg-emerald-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
-        >
-          <Play className="h-3.5 w-3.5 fill-current" />
-          <span>{t.simulateNextFarmer}</span>
-        </button>
+        {/* Demo Controls */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Demo Advance Simulation Button */}
+          <button
+            onClick={advanceQueue}
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-800 hover:bg-emerald-900 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
+          >
+            <Play className="h-3.5 w-3.5 fill-current" />
+            <span>{t.simulateNextFarmer}</span>
+          </button>
+
+          {/* Demo Auto-Advance Toggle Button */}
+          <button
+            onClick={() => setAutoDemoActive(!autoDemoActive)}
+            className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors ${
+              autoDemoActive 
+                ? 'bg-rose-700 hover:bg-rose-800 animate-pulse' 
+                : 'bg-indigo-700 hover:bg-indigo-800'
+            }`}
+          >
+            <Activity className="h-3.5 w-3.5" />
+            <span>{autoDemoActive ? "Stop Auto Demo" : "Start Auto Demo (8s)"}</span>
+          </button>
+        </div>
       </div>
 
       {/* Main Grid: Dial + Live Queue Visualizer */}

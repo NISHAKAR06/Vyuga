@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import {
   UserRole,
   Language,
@@ -114,6 +114,10 @@ interface AppContextType {
   // Active navigation tab
   currentTab: string;
   setCurrentTab: (tab: string) => void;
+
+  // Auto Demo Simulation
+  autoDemoActive: boolean;
+  setAutoDemoActive: (active: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -197,6 +201,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [notifications, setNotifications] = useState<AppNotification[]>(mockNotifications);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [produceDraft, setProduceDraft] = useState<any>(null);
+  const [autoDemoActive, setAutoDemoActive] = useState<boolean>(false);
 
   // Toast Helpers
   const addToast = useCallback((title: string, message: string, type: ToastMessage['type'] = 'info') => {
@@ -256,11 +261,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             expectedMaxYieldKg: 8400,
             reason: 'Normal declared yield within agronomic limits.'
           },
-          estimatedWaitMinutes: item.status === 'Now Serving' ? 0 : 15,
-          farmersAhead: item.status === 'Now Serving' ? 0 : 2,
-          createdAt: new Date().toISOString()
+          estimatedWaitMinutes: item.estimatedWaitMinutes !== undefined ? item.estimatedWaitMinutes : (item.status === 'Now Serving' ? 0 : 15),
+          farmersAhead: item.farmersAhead !== undefined ? item.farmersAhead : (item.status === 'Now Serving' ? 0 : 2),
+          createdAt: item.createdAt || new Date().toISOString()
         }));
         setLiveQueue(mappedQueue);
+        const myToken = mappedQueue.find((t: any) => t.farmerId === user.id);
+        if (myToken) {
+          setActiveFarmerToken(myToken);
+        }
       }
     }
     return healthy;
@@ -445,8 +454,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           counterAssigned: 'Counter 1'
         };
 
-        // Notify backend of queue call
-        api.callNextToken(nextToken.id);
+        // Notify backend of queue call and refresh queue from backend to get fresh ML predictions
+        api.callNextToken(nextToken.id).then(() => {
+          checkBackendHealth();
+        });
 
         if (activeFarmerToken && activeFarmerToken.id === updated[nextIdx].id) {
           setActiveFarmerToken(updated[nextIdx]);
@@ -519,6 +530,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         grade: grade,
         moisture_percentage: moisture,
         remarks: remarks
+      }).then(() => {
+        checkBackendHealth();
       });
     }
 
@@ -527,6 +540,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       api.recordWeighment(tokenId, {
         gross_weight_kg: actualKg + 500,
         tare_weight_kg: 500
+      }).then(() => {
+        checkBackendHealth();
       });
     }
 
@@ -680,6 +695,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
   };
 
+  // Auto Demo Simulation Loop
+  const advanceQueueRef = useRef(advanceQueue);
+  useEffect(() => {
+    advanceQueueRef.current = advanceQueue;
+  }, [advanceQueue]);
+
+  useEffect(() => {
+    let intervalId: any = null;
+    if (autoDemoActive) {
+      addToast("Demo Auto-Advance Active", "Queue will automatically clear step-by-step.", "info");
+      intervalId = setInterval(() => {
+        advanceQueueRef.current();
+      }, 8000); // Snappy 8 seconds interval for demo
+    }
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [autoDemoActive, addToast]);
+
   return (
     <AppContext.Provider
       value={{
@@ -722,7 +758,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         produceDraft,
         setProduceDraft,
         currentTab,
-        setCurrentTab
+        setCurrentTab,
+        autoDemoActive,
+        setAutoDemoActive
       }}
     >
       {children}

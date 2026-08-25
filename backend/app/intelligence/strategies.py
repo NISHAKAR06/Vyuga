@@ -60,6 +60,69 @@ class RollingAverageQueueEngine(QueueIntelligenceEngine):
             "strategy": "RollingAverageQueueEngine"
         }
 
+class MLWaitingTimeQueueEngine(QueueIntelligenceEngine):
+    async def analyze_queue(self, queue_data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        from app.ml.waiting_time.predict import predict_waiting_time
+        
+        # Default features
+        farmers_ahead = 0
+        currently_waiting = 0
+        currently_processing = 0
+        active_counters = 4
+        average_processing_time = 8.0
+        now = datetime.now()
+        hour = now.hour
+        day_of_week = now.weekday()
+        
+        if queue_data and isinstance(queue_data, list):
+            # Look for a feature dict or calculate
+            feature_dict = next((item for item in queue_data if isinstance(item, dict) and item.get("type") == "features"), None)
+            if feature_dict:
+                farmers_ahead = feature_dict.get("farmers_ahead", 0)
+                currently_waiting = feature_dict.get("currently_waiting", 0)
+                currently_processing = feature_dict.get("currently_processing", 0)
+                active_counters = feature_dict.get("active_counters", 4)
+                average_processing_time = feature_dict.get("average_processing_time", 8.0)
+                hour = feature_dict.get("hour", hour)
+                day_of_week = feature_dict.get("day_of_week", day_of_week)
+            else:
+                # Calculate from booking list
+                target_booking = next((item for item in queue_data if isinstance(item, dict) and item.get("is_target")), None)
+                if not target_booking and queue_data:
+                    # fallback to last booked/arrived/waiting item as target
+                    active_items = [item for item in queue_data if isinstance(item, dict) and item.get("status") in ("Booked", "Arrived", "Waiting", "BOOKED", "ARRIVED", "WAITING")]
+                    if active_items:
+                        target_booking = active_items[-1]
+                
+                currently_waiting = sum(1 for item in queue_data if isinstance(item, dict) and item.get("status") in ("Booked", "Arrived", "Waiting", "BOOKED", "ARRIVED", "WAITING"))
+                currently_processing = sum(1 for item in queue_data if isinstance(item, dict) and item.get("status") in ("Processing", "Quality Check", "Weighing", "PROCESSING", "QUALITY_CHECK", "WEIGHING"))
+                
+                if target_booking:
+                    target_token = target_booking.get("token_number", 0)
+                    farmers_ahead = sum(1 for item in queue_data if isinstance(item, dict) and item.get("status") in ("Booked", "Arrived", "Waiting", "BOOKED", "ARRIVED", "WAITING") and item.get("token_number", 0) < target_token)
+                    active_counters = target_booking.get("active_counters", 4)
+                    average_processing_time = target_booking.get("average_processing_time", 8.0)
+        
+        predicted_wait = predict_waiting_time(
+            farmers_ahead=farmers_ahead,
+            currently_waiting=currently_waiting,
+            currently_processing=currently_processing,
+            active_counters=active_counters,
+            average_processing_time=average_processing_time,
+            hour=hour,
+            day_of_week=day_of_week
+        )
+        
+        return {
+            "farmers_ahead": farmers_ahead,
+            "currently_waiting": currently_waiting,
+            "currently_processing": currently_processing,
+            "active_counters": active_counters,
+            "predicted_wait_minutes": int(predicted_wait),
+            "congestion_status": "HIGH" if currently_waiting > 15 else "NORMAL",
+            "strategy": "MLWaitingTimeQueueEngine"
+        }
+
 # 4. Quality Assessment Strategy (Requirement 24)
 class QualityAssessmentEngine(ABC):
     @abstractmethod
