@@ -16,3 +16,9 @@ celery>=5.3.6
 python-multipart>=0.0.9
 pytest>=8.1.1
 pytest-asyncio>=0.23.5
+# ML & Intelligence Layer
+numpy>=1.26.0
+scikit-learn>=1.4.0
+aiosqlite>=0.20.0
+# Notifications (Twilio optional — falls back to mock)
+twilio>=9.0.0
